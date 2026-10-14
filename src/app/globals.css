@@ -1,0 +1,172 @@
+@import "tailwindcss";
+
+/*
+ * Tokens. The disk is drawn in CSS, so these double as its materials.
+ * Sizes inside the disk use container query units (cqw): everything on
+ * it scales with the disk, with a floor so text never gets too small.
+ */
+@theme inline {
+  /*
+   * The desktop behind the disk: platinum grey with a 1-pixel dither.
+   * For ink blue instead: desk #1f2a3a, desk-text #c2cbda, dither #1c2636 / #222e40.
+   */
+  --color-desk: #dcdcdc;
+  --color-desk-text: #1d1e20;
+  --color-dither-a: #cdcdcd;
+  --color-dither-b: #e4e4e4;
+  --color-menubar: #f4f4f4;
+  --color-ink: #1d1e20;
+  --color-ink-soft: #55575b;
+  --color-disk: var(--disk, #1d1e20);
+  --color-disk-edge: #45474b;
+  --color-disk-text: #b9babd;
+  --color-metal: #c3c6ca;
+  --color-metal-edge: #8f9297;
+  /* The magnetic disk seen through the shutter window: a shade under the body. */
+  --color-media: #141517;
+  --color-emboss: #18191b;
+  --color-label: #f3f0e7;
+  --color-rule: #ddd7c8;
+  --color-pencil: #5a564d;
+  --color-red-pen: #b3261e;
+  --color-case: #dfe2e5;
+  --color-case-edge: #aeb2b7;
+
+  --font-serif: var(--font-instrument-serif), Georgia, serif;
+  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-wordmark: var(--font-michroma), ui-sans-serif, sans-serif;
+  --font-marker: var(--font-permanent-marker), cursive;
+  --font-hand: var(--font-caveat), cursive;
+}
+
+:root {
+  /* One ruled line on the label. Text sits on this rhythm. */
+  --line: max(1rem, 3.6cqw);
+}
+
+@utility ruled {
+  line-height: var(--line);
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(var(--line) - 1px),
+    var(--color-rule) calc(var(--line) - 1px),
+    var(--color-rule) var(--line)
+  );
+  /* Rules start where the text starts, so each line of text sits on one. */
+  background-origin: content-box;
+  /* Lines scroll with the text instead of staying put behind it. */
+  background-attachment: local;
+}
+
+@utility disk-shape {
+  /* 3.5" diskette: square body with the top right corner cut off. */
+  clip-path: polygon(0 0, 95% 0, 100% 4.6%, 100% 100%, 0 100%);
+}
+
+@utility hatch {
+  /* Diagonal hatching in the current text colour, for hovered sectors. */
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, currentColor 14%, transparent) 0 2px,
+    transparent 2px 6px
+  );
+}
+
+@utility brushed-metal {
+  /* Aluminium shutter: soft light falloff over fine horizontal brushing. */
+  background-color: var(--color-metal);
+  background-image:
+    repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 3px),
+    linear-gradient(to right, #c4c7cb, #d8dbde 30%, #ccd0d3 60%, #d5d8db 85%, #c2c5c9);
+}
+
+@utility emboss {
+  /* Lettering moulded into the plastic: same black, lit from above. */
+  color: var(--color-emboss);
+  text-shadow:
+    0 1px 0 rgb(255 255 255 / 0.07),
+    0 -1px 0 rgb(0 0 0 / 0.5);
+}
+
+@utility desktop-dither {
+  /* A 1-pixel checker, like a 90s desktop pattern. */
+  background-color: var(--color-desk);
+  background-image: repeating-conic-gradient(var(--color-dither-a) 0 25%, var(--color-dither-b) 0 50%);
+  background-size: 2px 2px;
+}
+
+@utility disc-sheen {
+  /* The rainbow sheen on the data side of a CD. */
+  background-image: conic-gradient(
+    from 210deg,
+    #d9dde2,
+    #f2e6cf,
+    #cfe4e7,
+    #e4d4ea,
+    #d9dde2,
+    #efe5c4,
+    #cfdbe9,
+    #e8d6dc,
+    #d9dde2
+  );
+}
+
+@keyframes spin-once {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@utility animate-spin-once {
+  animation: spin-once 900ms cubic-bezier(0.3, 0.7, 0.3, 1);
+}
+
+@keyframes copy {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+}
+
+@utility animate-copy {
+  /* Reveals a 12-segment bar one segment at a time. */
+  animation: copy 1.6s steps(12, end);
+}
+
+@keyframes insert {
+  from {
+    opacity: 0;
+    transform: translateY(0.35rem);
+  }
+}
+
+@utility animate-insert {
+  animation: insert 180ms ease-out;
+}
+
+@layer base {
+  html {
+    background: var(--color-desk);
+    color: var(--color-ink);
+  }
+
+  ::selection {
+    background: var(--color-ink);
+    color: var(--color-label);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

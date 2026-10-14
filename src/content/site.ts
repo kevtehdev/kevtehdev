@@ -1,0 +1,29 @@
+// Personal details live here, so the copy in the dictionaries never has to
+// change when an address or a link does.
+
+export const site = {
+  name: "Kevin Johnson",
+  // Printed on the disc in the CD-ROM edition.
+  wordmark: "KEVDEV",
+  domain: "kevdev.codes",
+  email: "hire@kevdev.codes",
+  location: "Linköping",
+  availableFrom: {
+    en: "October",
+    sv: "oktober",
+  },
+  // Listed on Contact, in this order.
+  profiles: [{ label: "GitHub", href: "https://github.com/kevtehdev" }],
+  latestCase: {
+    url: "https://www.wardeproperty.com",
+    // Google's PageSpeed Insights runs the same Lighthouse test on the live site.
+    pagespeed: "https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fwww.wardeproperty.com%2F",
+  },
+  // Every shipped project fills one sector of the disk; see lib/progress.ts.
+  // Flip "writing" to "shipped" when a project goes live.
+  projects: [
+    { name: "Warde Property", status: "shipped" },
+    { name: "Örhall Property Group", status: "writing" },
+  ],
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kevdev.codes",
+} as const;
