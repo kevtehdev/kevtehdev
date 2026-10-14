@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { site } from "@/content/site";
 import { type Locale, type View, locales, viewPath } from "@/lib/i18n";
 import { formatCapacity, formatUsage, getProgress, media } from "@/lib/progress";
 import { Body, Kicker, Label, Title } from "./disk/Label";
-import { Arrow, Note, Ring, Strike, Tally, Tick } from "./disk/Marker";
+import { CopyEmail } from "./disk/CopyEmail";
+import { PromptButton } from "./disk/Prompt";
 import { CdTeaser } from "./disk/CdTeaser";
 import { MediumIcon } from "./disk/MediumIcon";
 import { SectorMeter } from "./disk/SectorMeter";
@@ -31,9 +33,8 @@ function Home({ locale, dict }: ViewProps) {
 
   return (
     <Label>
-      <Note className="absolute top-[1.6cqw] right-[4cqw] -rotate-6">{dict.home.vol(progress.index + 1)}</Note>
       <Kicker>
-        {dict.home.volume} {site.name} · {site.location}
+        {dict.home.vol(progress.index + 1)} · {site.name} · {site.location}
       </Kicker>
       <Title>{dict.home.greeting}</Title>
       <Body>{dict.home.line}</Body>
@@ -75,17 +76,19 @@ function Home({ locale, dict }: ViewProps) {
           </li>
         ))}
       </ul>
-      <p className="mt-[var(--line)] font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">
-        {files.length} {dict.home.fileCount} · {dict.home.available} {site.availableFrom[locale]}
-      </p>
-      <p className="flex -rotate-2 items-center justify-end gap-[1.2cqw]">
-        <Note>{dict.upgrade.shipped}</Note>
-        <Tally
-          done={progress.filled}
-          total={progress.total}
-          label={dict.upgrade.tallyLabel(progress.filled, progress.total)}
-        />
-      </p>
+      <div className="mt-[var(--line)] flex flex-wrap items-center justify-between gap-x-[3cqw]">
+        <p className="font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">
+          {files.length} {dict.home.fileCount} ·{" "}
+          {site.availableFrom ? `${dict.home.available} ${site.availableFrom[locale]}` : dict.home.availableNow}
+        </p>
+        <PromptButton
+          label={dict.prompt.open}
+          className="ml-auto hidden h-[var(--line)] items-center gap-[1cqw] font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase hover:text-ink sm:inline-flex"
+        >
+          {dict.home.tryPrompt}
+          <kbd className="rounded-[2px] border border-pencil/50 px-[0.8cqw] font-mono leading-tight">/</kbd>
+        </PromptButton>
+      </div>
     </Label>
   );
 }
@@ -96,7 +99,7 @@ function Case({ locale, dict }: ViewProps) {
       <Kicker>{dict.case.kicker}</Kicker>
       <Title>{dict.case.title}</Title>
       <Body>{dict.case.body}</Body>
-      <dl className="flex flex-wrap gap-x-[4cqw]">
+      <dl className="mt-[var(--line)] flex flex-wrap gap-x-[4cqw]">
         {dict.case.figures.map((figure) => (
           <div key={figure.label} className="flex flex-row-reverse items-baseline justify-end gap-[1.5cqw]">
             <dt className="font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.04em] text-pencil uppercase">
@@ -108,11 +111,15 @@ function Case({ locale, dict }: ViewProps) {
       </dl>
       <Kicker>
         {dict.case.figuresSource} ·{" "}
-        <a href={site.latestCase.pagespeed} className={`${link} whitespace-nowrap`} rel="noopener">
+        <a
+          href={site.latestCase.pagespeed}
+          className="whitespace-nowrap text-pass underline decoration-pass/40 underline-offset-[0.2em] hover:decoration-pass"
+          rel="noopener"
+        >
           {dict.case.test} ↗
         </a>
       </Kicker>
-      <p className="flex flex-wrap gap-x-[3cqw] font-mono text-[max(0.6875rem,2.2cqw)]">
+      <p className="mt-[var(--line)] flex flex-wrap gap-x-[3cqw] font-mono text-[max(0.6875rem,2.2cqw)]">
         <a href={site.latestCase.url} className={link} rel="noopener">
           {dict.case.link} ↗
         </a>
@@ -128,17 +135,12 @@ function Now({ locale, dict }: ViewProps) {
   return (
     <Label>
       <Kicker>
-        {dict.now.correction ? (
-          <>
-            <Strike>{dict.now.status}</Strike>{" "}
-            <Note ink="red" className="inline-block -rotate-3 tracking-normal normal-case">
-              {dict.now.correction}
-            </Note>
-          </>
-        ) : (
-          dict.now.status
-        )}{" "}
-        · {dict.now.due} {site.availableFrom[locale]}
+        <span className="text-ink">{dict.now.correction || dict.now.status}</span>
+        <span
+          aria-hidden
+          className="ml-[0.3em] inline-block h-[0.9em] w-[0.5em] translate-y-[0.12em] animate-pulse bg-ink"
+        />{" "}
+        · {dict.now.due} {site.nowDue[locale]}
       </Kicker>
       <Title>{dict.now.title}</Title>
       <Body>{dict.now.body}</Body>
@@ -200,11 +202,19 @@ function Skills({ locale, dict }: ViewProps) {
 
       <section className="mt-[var(--line)]">
         <Kicker>{dict.skills.toolsHeading}</Kicker>
-        <dl className={mono}>
+        <dl className={`grid grid-cols-[auto_1fr] items-baseline gap-x-[3cqw] ${mono}`}>
           {dict.skills.tools.map((tool) => (
-            <div key={tool.group} className="flex flex-wrap gap-x-[1.5cqw]">
-              <dt className="text-pencil">{tool.group}</dt>
-              <dd>{tool.list}</dd>
+            <div key={tool.group} className="contents">
+              <dt className="text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">{tool.group}</dt>
+              <dd>
+                {/* Wrap between tools, never inside a name like "GitHub Actions". */}
+                {tool.list.split(" · ").map((name, i) => (
+                  <Fragment key={name}>
+                    {i > 0 && " · "}
+                    <span className="whitespace-nowrap">{name}</span>
+                  </Fragment>
+                ))}
+              </dd>
             </div>
           ))}
         </dl>
@@ -229,16 +239,11 @@ function Contact({ dict }: ViewProps) {
       <Kicker>{dict.contact.kicker}</Kicker>
       <Title>{dict.contact.title}</Title>
       <Body>{dict.contact.body}</Body>
-      <p className="font-serif text-[max(0.9375rem,3.4cqw)]">
-        <Ring>
-          <a href={`mailto:${site.email}`} className={link}>
-            {site.email}
-          </a>
-        </Ring>
-        <Note ink="red" className="ml-[3cqw] inline-flex -rotate-3 items-center gap-[0.6cqw] align-middle">
-          <Arrow direction="left" />
-          {dict.contact.sayHi}
-        </Note>
+      <p className="mt-[var(--line)] flex flex-wrap items-center gap-x-[3cqw] font-serif text-[max(0.9375rem,3.4cqw)]">
+        <a href={`mailto:${site.email}`} className={link}>
+          {site.email}
+        </a>
+        <CopyEmail email={site.email} label={dict.contact.copy} done={dict.contact.copied} />
       </p>
       <ul className="flex flex-wrap gap-x-[3cqw] font-mono text-[max(0.6875rem,2.2cqw)]">
         {site.profiles.map((profile) => (
@@ -288,28 +293,26 @@ function Upgrade({ locale, dict }: ViewProps) {
         {projects.map((project) => (
           <li key={project.name} className="flex gap-[2cqw]">
             <span className="text-pencil">{number(project.number)}</span>
-            <span className="flex min-w-0 items-center gap-[1cqw]">
-              <span className="truncate">{project.name}</span>
-              {project.status === "shipped" && <Tick className="shrink-0" />}
-            </span>
+            <span className="truncate">{project.name}</span>
             <span className="ml-auto shrink-0 text-[max(0.625rem,1.9cqw)] tracking-[0.06em] text-pencil uppercase">
               {dict.upgrade.status[project.status]}
             </span>
           </li>
         ))}
-        <li className="flex gap-[2cqw] text-pencil">
-          <span>{number(nextNumber)}</span>
-          <span className="truncate">{dict.upgrade.yours}</span>
-          <Note
-            ink="red"
-            className="hidden -rotate-2 items-center gap-[0.6cqw] text-[max(0.8125rem,2.4cqw)] sm:inline-flex"
+        <li>
+          <Link
+            href={viewPath(locale, "contact")}
+            prefetch
+            className="group flex gap-[2cqw] text-pencil hover:text-ink"
           >
-            <Arrow direction="left" />
-            {dict.upgrade.yoursNote}
-          </Note>
-          <span className="ml-auto shrink-0 text-[max(0.625rem,1.9cqw)] tracking-[0.06em] uppercase">
-            {dict.upgrade.status.free}
-          </span>
+            <span>{number(nextNumber)}</span>
+            <span className="truncate underline decoration-pencil/30 underline-offset-[0.2em] group-hover:decoration-ink">
+              {dict.upgrade.yours}
+            </span>
+            <span className="ml-auto shrink-0 text-[max(0.625rem,1.9cqw)] tracking-[0.06em] uppercase">
+              {dict.upgrade.status.free} →
+            </span>
+          </Link>
         </li>
       </ol>
       <p className="mt-[var(--line)] font-mono text-[max(0.6875rem,2.2cqw)]">
@@ -453,7 +456,11 @@ function Brief({ locale, dict }: ViewProps) {
         </dl>
         <Kicker>
           {dict.case.figuresSource} ·{" "}
-          <a href={site.latestCase.pagespeed} className={`${link} whitespace-nowrap`} rel="noopener">
+          <a
+            href={site.latestCase.pagespeed}
+            className="whitespace-nowrap text-pass underline decoration-pass/40 underline-offset-[0.2em] hover:decoration-pass"
+            rel="noopener"
+          >
             {dict.case.test} ↗
           </a>
         </Kicker>

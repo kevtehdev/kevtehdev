@@ -20,6 +20,9 @@ export const views = [...navViews, "upgrade", "roadmap", "brief", "skills"] as c
 
 export type View = (typeof views)[number];
 
+/** Prerendered as a 404; the proxy rewrites unknown views here (see [view]/page.tsx). */
+export const NOT_FOUND_VIEW = "404";
+
 export const hasView = (value: string): value is Exclude<View, "home"> =>
   value !== "home" && (views as readonly string[]).includes(value);
 

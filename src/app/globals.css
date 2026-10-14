@@ -28,7 +28,8 @@
   --color-label: #f3f0e7;
   --color-rule: #ddd7c8;
   --color-pencil: #5a564d;
-  --color-red-pen: #b3261e;
+  /* Lighthouse's pass green, darkened to read on the label (5.4:1). */
+  --color-pass: #2a6f36;
   --color-case: #dfe2e5;
   --color-case-edge: #aeb2b7;
 
@@ -36,8 +37,7 @@
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   --font-wordmark: var(--font-michroma), ui-sans-serif, sans-serif;
-  --font-marker: var(--font-permanent-marker), cursive;
-  --font-hand: var(--font-caveat), cursive;
+  --font-terminal: var(--font-vt323), ui-monospace, monospace;
 }
 
 :root {

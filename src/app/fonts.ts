@@ -42,20 +42,11 @@ export const wordmark = localFont({
   fallback: ["ui-sans-serif", "sans-serif"],
 });
 
-// Handwriting on the label: a felt-tip for notes, a fine liner for small print.
-// Decorative, so neither is preloaded; the text swaps in when they arrive.
-export const marker = localFont({
-  src: [{ path: "../fonts/permanent-marker-latin-400-normal.woff2", weight: "400", style: "normal" }],
-  variable: "--font-permanent-marker",
+// The A:\> prompt on the label. Only needed once it opens, so it isn't preloaded.
+export const terminal = localFont({
+  src: [{ path: "../fonts/vt323-latin-400-normal.woff2", weight: "400", style: "normal" }],
+  variable: "--font-vt323",
   display: "swap",
   preload: false,
-  fallback: ["cursive"],
-});
-
-export const hand = localFont({
-  src: [{ path: "../fonts/caveat-latin-700-normal.woff2", weight: "700", style: "normal" }],
-  variable: "--font-caveat",
-  display: "swap",
-  preload: false,
-  fallback: ["cursive"],
+  fallback: ["ui-monospace", "monospace"],
 });

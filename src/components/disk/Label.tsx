@@ -7,7 +7,7 @@ import type { ReactNode } from "react";
 
 export function Label({ children }: { children: ReactNode }) {
   return (
-    <div className="absolute inset-0 animate-insert overflow-y-auto overscroll-contain ruled px-[max(1rem,5cqw)] py-[max(0.5rem,2.8cqw)]">
+    <div className="absolute inset-0 animate-insert [scrollbar-width:thin] [scrollbar-color:var(--color-rule)_transparent] overflow-y-auto overscroll-contain ruled px-[max(1rem,5cqw)] py-[max(0.5rem,2.8cqw)]">
       {children}
     </div>
   );
