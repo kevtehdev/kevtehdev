@@ -1,7 +1,10 @@
+import AxeBuilder from "@axe-core/playwright";
 import { expect, test } from "@playwright/test";
 
+const pages = ["/en", "/sv", "/en/case", "/en/brief", "/en/skills", "/en/contact", "/en/upgrade", "/sv/roadmap"];
+
 test.describe("pages", () => {
-  for (const path of ["/en", "/sv", "/en/case", "/en/brief", "/en/skills", "/en/contact", "/sv/roadmap"]) {
+  for (const path of pages) {
     test(`${path} renders on the label`, async ({ page }) => {
       const response = await page.goto(path);
       expect(response?.status()).toBe(200);
@@ -37,6 +40,20 @@ test.describe("navigation", () => {
     await page.getByRole("link", { name: "sv", exact: true }).click();
     await expect(page).toHaveURL(/\/sv\/about$/);
   });
+});
+
+test.describe("accessibility", () => {
+  for (const path of pages) {
+    test(`${path} has no axe violations`, async ({ page }) => {
+      await page.goto(path);
+      const { violations } = await new AxeBuilder({ page })
+        .withTags(["wcag2a", "wcag2aa", "wcag21aa"])
+        // Lettering moulded into the plastic (the HD mark) is tone on tone on purpose.
+        .exclude(".emboss")
+        .analyze();
+      expect(violations.map(({ id, nodes }) => `${id}: ${nodes.map((node) => node.target).join(", ")}`)).toEqual([]);
+    });
+  }
 });
 
 test.describe("metadata", () => {
