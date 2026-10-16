@@ -27,11 +27,15 @@ export function CtaLink({ href, children }: { href: string; children: ReactNode 
 export function Figures({ dict, className = "" }: { dict: Dictionary; className?: string }) {
   return (
     <>
-      <dl className={`flex flex-wrap gap-x-[4cqw] ${className}`}>
+      {/* A scorecard, 2 × 2 on wide labels: scores right-aligned in one column, so the labels line up. */}
+      <dl className={`grid gap-x-[4cqw] @md:grid-cols-2 ${className}`}>
         {dict.case.figures.map((figure) => (
-          <div key={figure.label} className="flex flex-row-reverse items-baseline justify-end gap-[1.5cqw]">
+          <div
+            key={figure.label}
+            className="flex h-[var(--line)] min-w-0 flex-row-reverse items-baseline justify-end gap-[1.5cqw]"
+          >
             <dt className="type-small tracking-[0.04em] text-pencil uppercase">{figure.label}</dt>
-            <dd className="type-title tabular-nums">{figure.value}</dd>
+            <dd className="w-[2.6em] shrink-0 text-right type-title tabular-nums">{figure.value}</dd>
           </div>
         ))}
       </dl>
