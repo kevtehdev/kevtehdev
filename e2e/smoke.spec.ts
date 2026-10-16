@@ -39,35 +39,6 @@ test.describe("navigation", () => {
   });
 });
 
-test.describe("A:\\> prompt", () => {
-  test.skip(({ isMobile }) => isMobile, "Opened with the / key on desktop");
-
-  test("type prints a file and open goes to its page", async ({ page }) => {
-    await page.goto("/en", { waitUntil: "networkidle" });
-    await page.keyboard.press("/");
-    const prompt = page.getByRole("dialog", { name: "Command prompt" });
-    await expect(prompt).toBeVisible();
-
-    const input = prompt.getByRole("textbox");
-    await input.fill("type case");
-    await input.press("Enter");
-    await expect(prompt).toContainText("Warde Property");
-    await expect(page).toHaveURL(/\/en$/);
-
-    await input.fill("open case");
-    await input.press("Enter");
-    await expect(page).toHaveURL(/\/en\/case$/);
-  });
-
-  test("Escape closes it", async ({ page }) => {
-    await page.goto("/en", { waitUntil: "networkidle" });
-    await page.keyboard.press("/");
-    await expect(page.getByRole("dialog", { name: "Command prompt" })).toBeVisible();
-    await page.keyboard.press("Escape");
-    await expect(page.getByRole("dialog", { name: "Command prompt" })).toBeHidden();
-  });
-});
-
 test.describe("metadata", () => {
   test("robots, sitemap and the share image are served", async ({ request }) => {
     expect((await request.get("/robots.txt")).status()).toBe(200);

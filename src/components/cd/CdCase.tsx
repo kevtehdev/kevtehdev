@@ -1,7 +1,5 @@
 import type { ReactNode } from "react";
 import { LanguageSwitch } from "@/components/disk/LanguageSwitch";
-import { Prompt } from "@/components/disk/Prompt";
-import { promptProps } from "@/components/disk/promptProps";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { site } from "@/content/site";
 import type { Locale } from "@/lib/i18n";
@@ -29,10 +27,7 @@ export function CdCase({ locale, dict, children }: CdCaseProps) {
       <div className="grid rounded-md bg-case p-[6px] shadow-[inset_0_0_0_1px_var(--color-case-edge),0_18px_30px_-18px_rgba(0,0,0,0.35)] sm:grid-cols-2">
         {/* Booklet: each page renders its view in here. */}
         <div className="@container relative aspect-square">
-          <main className="absolute inset-0 overflow-hidden bg-label">
-            {children}
-            <Prompt {...promptProps(locale, dict)} />
-          </main>
+          <main className="absolute inset-0 overflow-hidden bg-label">{children}</main>
         </div>
 
         {/* Tray, with the hinge along its left edge */}

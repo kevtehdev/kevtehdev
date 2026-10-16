@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
-import { type Locale, viewPath, views } from "@/lib/i18n";
+import { type Locale, parentView, viewPath, views } from "@/lib/i18n";
 
 type TrackListProps = {
   locale: Locale;
@@ -11,9 +11,8 @@ type TrackListProps = {
   titles: Dictionary["nav"];
 };
 
-/** Views opened from inside another view rather than as tracks of their own. */
-const hidden = new Set<string>(["brief", "skills"]);
-const tracks = views.filter((view) => !hidden.has(view));
+/** Views opened from inside another view don't get tracks of their own. */
+const tracks = views.filter((view) => !parentView[view]);
 
 /** The view switcher on the CD edition: the back of the booklet, one track per view. */
 export function TrackList({ locale, label, titles }: TrackListProps) {

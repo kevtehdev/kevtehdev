@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
-import { type Locale, navViews, viewPath } from "@/lib/i18n";
+import { type Locale, navViews, parentView, viewPath, views } from "@/lib/i18n";
 
 type DiskNavProps = {
   locale: Locale;
@@ -19,9 +19,9 @@ type DiskNavProps = {
 export function DiskNav({ locale, labels }: DiskNavProps) {
   const pathname = usePathname();
   // Files opened from inside a view keep the read head on that view.
-  const parents = { brief: "case", skills: "about" } as const;
-  const parent = (Object.keys(parents) as (keyof typeof parents)[]).find((view) => pathname === viewPath(locale, view));
-  const path = parent ? viewPath(locale, parents[parent]) : pathname;
+  const view = views.find((v) => pathname === viewPath(locale, v));
+  const parent = view && parentView[view];
+  const path = parent ? viewPath(locale, parent) : pathname;
   const currentIndex = navViews.findIndex((view) => path === viewPath(locale, view));
 
   return (

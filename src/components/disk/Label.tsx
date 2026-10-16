@@ -18,7 +18,8 @@ export function Kicker({ children }: { children: ReactNode }) {
 }
 
 export function Title({ children, as: Tag = "h1" }: { children: ReactNode; as?: "h1" | "p" }) {
-  return <Tag className="font-serif text-[max(0.9375rem,3.4cqw)] font-normal">{children}</Tag>;
+  // One blank ruled line between the title and whatever follows it.
+  return <Tag className="mb-[var(--line)] font-serif text-[max(0.9375rem,3.4cqw)] font-normal">{children}</Tag>;
 }
 
 export function Body({ children }: { children: ReactNode }) {

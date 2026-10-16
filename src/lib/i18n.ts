@@ -20,6 +20,9 @@ export const views = [...navViews, "upgrade", "roadmap", "brief", "skills"] as c
 
 export type View = (typeof views)[number];
 
+/** Files opened from inside another view, mapped to that view. They get no nav slot of their own. */
+export const parentView: Partial<Record<View, View>> = { brief: "case", skills: "about" };
+
 /** Prerendered as a 404; the proxy rewrites unknown views here (see [view]/page.tsx). */
 export const NOT_FOUND_VIEW = "404";
 

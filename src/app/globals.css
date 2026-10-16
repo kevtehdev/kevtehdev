@@ -37,7 +37,6 @@
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
   --font-wordmark: var(--font-michroma), ui-sans-serif, sans-serif;
-  --font-terminal: var(--font-vt323), ui-monospace, monospace;
 }
 
 :root {

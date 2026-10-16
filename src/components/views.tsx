@@ -7,7 +7,6 @@ import { type Locale, type View, locales, viewPath } from "@/lib/i18n";
 import { formatCapacity, formatUsage, getProgress, media } from "@/lib/progress";
 import { Body, Kicker, Label, Title } from "./disk/Label";
 import { CopyEmail } from "./disk/CopyEmail";
-import { PromptButton } from "./disk/Prompt";
 import { CdTeaser } from "./disk/CdTeaser";
 import { MediumIcon } from "./disk/MediumIcon";
 import { SectorMeter } from "./disk/SectorMeter";
@@ -76,19 +75,10 @@ function Home({ locale, dict }: ViewProps) {
           </li>
         ))}
       </ul>
-      <div className="mt-[var(--line)] flex flex-wrap items-center justify-between gap-x-[3cqw]">
-        <p className="font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">
-          {files.length} {dict.home.fileCount} ·{" "}
-          {site.availableFrom ? `${dict.home.available} ${site.availableFrom[locale]}` : dict.home.availableNow}
-        </p>
-        <PromptButton
-          label={dict.prompt.open}
-          className="ml-auto hidden h-[var(--line)] items-center gap-[1cqw] font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase hover:text-ink sm:inline-flex"
-        >
-          {dict.home.tryPrompt}
-          <kbd className="rounded-[2px] border border-pencil/50 px-[0.8cqw] font-mono leading-tight">/</kbd>
-        </PromptButton>
-      </div>
+      <p className="mt-[var(--line)] font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">
+        {files.length} {dict.home.fileCount} ·{" "}
+        {site.availableFrom ? `${dict.home.available} ${site.availableFrom[locale]}` : dict.home.availableNow}
+      </p>
     </Label>
   );
 }

@@ -41,12 +41,3 @@ export const wordmark = localFont({
   preload: false,
   fallback: ["ui-sans-serif", "sans-serif"],
 });
-
-// The A:\> prompt on the label. Only needed once it opens, so it isn't preloaded.
-export const terminal = localFont({
-  src: [{ path: "../fonts/vt323-latin-400-normal.woff2", weight: "400", style: "normal" }],
-  variable: "--font-vt323",
-  display: "swap",
-  preload: false,
-  fallback: ["ui-monospace", "monospace"],
-});

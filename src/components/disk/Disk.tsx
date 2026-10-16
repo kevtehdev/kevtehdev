@@ -3,8 +3,6 @@ import type { Dictionary } from "@/content/dictionaries/en";
 import type { Locale } from "@/lib/i18n";
 import { DiskNav } from "./DiskNav";
 import { LanguageSwitch } from "./LanguageSwitch";
-import { Prompt } from "./Prompt";
-import { promptProps } from "./promptProps";
 
 type DiskProps = {
   locale: Locale;
@@ -84,7 +82,6 @@ export function Disk({ locale, dict, children }: DiskProps) {
         {/* Paper label: each page renders its view in here. */}
         <main className="absolute inset-x-[7%] top-[31%] bottom-[11%] overflow-hidden rounded-[1.2cqw] bg-label sm:top-[37%] sm:bottom-[15%]">
           {children}
-          <Prompt {...promptProps(locale, dict)} />
         </main>
 
         {/* Write-protect and density holes */}

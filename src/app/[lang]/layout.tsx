@@ -4,13 +4,12 @@ import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
 import { CdCase } from "@/components/cd/CdCase";
 import { Disk } from "@/components/disk/Disk";
-import { PromptButton } from "@/components/disk/Prompt";
 import { UsageLink } from "@/components/disk/UsageLink";
 import { UpgradeNotice } from "@/components/UpgradeNotice";
 import { site } from "@/content/site";
 import { getDictionary, hasLocale, locales, viewPath } from "@/lib/i18n";
 import { formatCapacity, getProgress } from "@/lib/progress";
-import { mono, sans, serif, terminal, wordmark } from "../fonts";
+import { mono, sans, serif, wordmark } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -39,7 +38,7 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
 }
 
 export const viewport: Viewport = {
-  themeColor: "#1f2a3a",
+  themeColor: "#f4f4f4",
 };
 
 export default async function LocaleLayout({ children, params }: LayoutProps<"/[lang]">) {
@@ -81,17 +80,11 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   };
 
   return (
-    <html
-      lang={lang}
-      className={`${serif.variable} ${sans.variable} ${mono.variable} ${wordmark.variable} ${terminal.variable}`}
-    >
+    <html lang={lang} className={`${serif.variable} ${sans.variable} ${mono.variable} ${wordmark.variable}`}>
       <body className="desktop-dither bg-desk font-sans text-ink antialiased">
         {/* Menu bar, platinum desktop style: the site, its disk usage and the year. */}
         <header className="fixed inset-x-0 top-0 z-40 flex h-7 items-center justify-between border-b border-ink bg-menubar px-3 font-mono text-[11px] tracking-[0.06em] text-ink uppercase">
-          <span className="flex h-full items-center gap-3">
-            <span className="font-medium">{site.domain}</span>
-            <PromptButton label={dict.prompt.open} />
-          </span>
+          <span className="font-medium">{site.domain}</span>
           <span className="flex items-center gap-4">
             <UsageLink locale={lang} dict={dict} placement="below" />
             <span className="hidden sm:inline">2026</span>
