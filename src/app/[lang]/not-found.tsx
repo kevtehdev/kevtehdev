@@ -8,7 +8,7 @@ export default function NotFound() {
     <Label>
       <Kicker>Error · Fel</Kicker>
       <Title>Sector not found. Sektorn hittades inte.</Title>
-      <p className="font-mono text-[max(0.75rem,2.3cqw)]">
+      <p className="type-body">
         <Link href="/" className="underline decoration-ink/30 underline-offset-[0.2em] hover:decoration-ink">
           ← Start
         </Link>

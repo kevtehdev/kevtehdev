@@ -20,7 +20,7 @@ export function CopyEmail({ email, label, done }: { email: string; label: string
     <button
       type="button"
       onClick={copy}
-      className="inline-flex min-h-11 items-center font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase hover:text-ink"
+      className="inline-flex min-h-11 items-center type-small tracking-[0.08em] text-pencil uppercase hover:text-ink"
     >
       <span aria-live="polite">{copied ? `${done} ✓` : label}</span>
     </button>

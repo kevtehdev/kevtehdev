@@ -8,7 +8,8 @@ import { UsageLink } from "@/components/disk/UsageLink";
 import { UpgradeNotice } from "@/components/UpgradeNotice";
 import { site } from "@/content/site";
 import { getDictionary, hasLocale, locales, viewPath } from "@/lib/i18n";
-import { formatCapacity, getProgress } from "@/lib/progress";
+import { formatCapacity, progress } from "@/lib/progress";
+import { structuredData } from "@/lib/structuredData";
 import { mono, sans, serif, wordmark } from "../fonts";
 import "../globals.css";
 
@@ -45,39 +46,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
-  const progress = getProgress();
   // The floppy until 5 projects ship, then the CD-ROM. Later media reuse the
   // CD until they get a design of their own.
   const Shell = progress.current.id === "floppy" ? Disk : CdCase;
-
-  // Who and what the site is, for search engines.
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Person",
-        "@id": `${site.url}/#person`,
-        name: site.name,
-        jobTitle: dict.meta.title,
-        email: `mailto:${site.email}`,
-        url: site.url,
-        address: { "@type": "PostalAddress", addressLocality: site.location, addressCountry: "SE" },
-        sameAs: site.profiles.map((profile) => profile.href),
-        knowsAbout: ["Next.js", "React", "TypeScript", "Go", "PostgreSQL", "Payload CMS", "Docker", "Kubernetes"],
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": `${site.url}/#service`,
-        name: site.domain,
-        url: site.url,
-        description: dict.meta.description,
-        email: site.email,
-        areaServed: "Worldwide",
-        address: { "@type": "PostalAddress", addressLocality: site.location, addressCountry: "SE" },
-        founder: { "@id": `${site.url}/#person` },
-      },
-    ],
-  };
 
   return (
     <html lang={lang} className={`${serif.variable} ${sans.variable} ${mono.variable} ${wordmark.variable}`}>
@@ -108,7 +79,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
         </div>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, "\\u003c") }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData(dict)).replace(/</g, "\\u003c") }}
         />
         <Analytics />
         <SpeedInsights />

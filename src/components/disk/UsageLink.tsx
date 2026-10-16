@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { type Locale, viewPath } from "@/lib/i18n";
-import { formatUsage, getProgress } from "@/lib/progress";
+import { formatUsage, progress } from "@/lib/progress";
 import { SectorMeter } from "./SectorMeter";
 
 /**
@@ -18,7 +18,6 @@ export function UsageLink({
   placement?: "above" | "below";
 }) {
   const below = placement === "below";
-  const progress = getProgress();
 
   return (
     <Link

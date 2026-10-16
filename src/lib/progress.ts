@@ -19,13 +19,17 @@ export type Medium = MediumInfo["id"];
 /** One sector per project between the current medium and the next. */
 export type Sector = "shipped" | "writing" | "free";
 
-// Run with NEXT_PUBLIC_PREVIEW_MEDIUM=cdrom to see a later medium before it's earned.
-const previewIndex = media.findIndex((medium) => medium.id === process.env.NEXT_PUBLIC_PREVIEW_MEDIUM);
+type Project = { status: "shipped" | "writing" };
 
-export function getProgress() {
-  const shippedForReal = site.projects.filter((project) => project.status === "shipped").length;
+/**
+ * Where a list of projects puts the site on the upgrade path. `preview` names a
+ * medium to show before it's earned (see `progress` below).
+ */
+export function getProgress(projects: readonly Project[], preview?: string) {
+  const previewIndex = media.findIndex((medium) => medium.id === preview);
+  const shippedForReal = projects.filter((project) => project.status === "shipped").length;
   const shipped = previewIndex > 0 ? Math.max(shippedForReal, media[previewIndex].unlocksAt) : shippedForReal;
-  const writing = site.projects.filter((project) => project.status === "writing").length;
+  const writing = projects.filter((project) => project.status === "writing").length;
 
   let index = 0;
   media.forEach((medium, i) => {
@@ -54,6 +58,9 @@ export function getProgress() {
     toGo: next ? next.unlocksAt - shipped : 0,
   };
 }
+
+/** The site's own progress. Run with NEXT_PUBLIC_PREVIEW_MEDIUM=cdrom to see a later medium before it's earned. */
+export const progress = getProgress(site.projects, process.env.NEXT_PUBLIC_PREVIEW_MEDIUM);
 
 function format(locale: Locale, value: number, digits: number) {
   return new Intl.NumberFormat(locale, { minimumFractionDigits: digits, maximumFractionDigits: digits }).format(value);

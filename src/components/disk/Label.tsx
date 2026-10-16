@@ -14,14 +14,14 @@ export function Label({ children }: { children: ReactNode }) {
 }
 
 export function Kicker({ children }: { children: ReactNode }) {
-  return <p className="font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">{children}</p>;
+  return <p className="type-small tracking-[0.08em] text-pencil uppercase">{children}</p>;
 }
 
 export function Title({ children, as: Tag = "h1" }: { children: ReactNode; as?: "h1" | "p" }) {
   // One blank ruled line between the title and whatever follows it.
-  return <Tag className="mb-[var(--line)] font-serif text-[max(0.9375rem,3.4cqw)] font-normal">{children}</Tag>;
+  return <Tag className="mb-[var(--line)] type-title font-normal">{children}</Tag>;
 }
 
 export function Body({ children }: { children: ReactNode }) {
-  return <p className="max-w-[60ch] font-mono text-[max(0.6875rem,2.2cqw)] text-pretty">{children}</p>;
+  return <p className="max-w-[60ch] type-body text-pretty">{children}</p>;
 }

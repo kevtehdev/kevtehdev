@@ -59,6 +59,25 @@
   background-attachment: local;
 }
 
+/*
+ * Type scale on the label. Each sets family and size only, so tracking,
+ * colour and case stay free to vary per use.
+ */
+@utility type-title {
+  font-family: var(--font-serif);
+  font-size: max(0.9375rem, 3.4cqw);
+}
+
+@utility type-body {
+  font-family: var(--font-mono);
+  font-size: max(0.6875rem, 2.2cqw);
+}
+
+@utility type-small {
+  font-family: var(--font-mono);
+  font-size: max(0.625rem, 1.9cqw);
+}
+
 @utility disk-shape {
   /* 3.5" diskette: square body with the top right corner cut off. */
   clip-path: polygon(0 0, 95% 0, 100% 4.6%, 100% 100%, 0 100%);

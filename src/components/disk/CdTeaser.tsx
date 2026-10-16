@@ -1,5 +1,6 @@
 import type { Dictionary } from "@/content/dictionaries/en";
 import { site } from "@/content/site";
+import { pad2 } from "@/lib/format";
 import { views } from "@/lib/i18n";
 
 /**
@@ -10,9 +11,7 @@ import { views } from "@/lib/i18n";
 export function CdTeaser({ dict }: { dict: Dictionary }) {
   return (
     <figure className="group mt-[var(--line)]">
-      <figcaption className="font-mono text-[max(0.625rem,1.9cqw)] tracking-[0.08em] text-pencil uppercase">
-        {dict.upgrade.peek}
-      </figcaption>
+      <figcaption className="type-small tracking-[0.08em] text-pencil uppercase">{dict.upgrade.peek}</figcaption>
       <div
         aria-hidden
         className="grid grid-cols-[calc(var(--line)*6)_1fr] rounded-[3px] bg-case p-[0.8cqw] shadow-[inset_0_0_0_1px_var(--color-case-edge)]"
@@ -36,7 +35,7 @@ export function CdTeaser({ dict }: { dict: Dictionary }) {
                 key={view}
                 className={["flex gap-[1.5cqw] px-[0.8cqw]", i === 0 ? "bg-ink text-label" : ""].join(" ")}
               >
-                <span className={i === 0 ? "text-disk-text" : "text-pencil"}>{String(i + 1).padStart(2, "0")}</span>
+                <span className={i === 0 ? "text-disk-text" : "text-pencil"}>{pad2(i + 1)}</span>
                 <span className="truncate">{dict.nav[view]}</span>
               </li>
             ))}

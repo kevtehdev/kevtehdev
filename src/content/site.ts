@@ -8,6 +8,8 @@ export const site = {
   domain: "kevdev.codes",
   email: "hire@kevdev.codes",
   location: "Linköping",
+  // Told to search engines in the structured data, not shown on the page.
+  knowsAbout: ["Next.js", "React", "TypeScript", "Go", "PostgreSQL", "Payload CMS", "Docker", "Kubernetes"],
   // When new projects can start. Null means "Available now"; set a month to show "Available from …".
   availableFrom: null as { en: string; sv: string } | null,
   // Due date of the project on the Now page.

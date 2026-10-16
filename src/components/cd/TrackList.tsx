@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
+import { pad2 } from "@/lib/format";
 import { type Locale, parentView, viewPath, views } from "@/lib/i18n";
 
 type TrackListProps = {
@@ -37,7 +38,7 @@ export function TrackList({ locale, label, titles }: TrackListProps) {
                   current ? "bg-ink text-label" : "hover:bg-ink/5",
                 ].join(" ")}
               >
-                <span className={current ? "text-disk-text" : "text-pencil"}>{String(index + 1).padStart(2, "0")}</span>
+                <span className={current ? "text-disk-text" : "text-pencil"}>{pad2(index + 1)}</span>
                 <span className="truncate">{titles[view]}</span>
                 {current && (
                   <span

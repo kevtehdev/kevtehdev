@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
+import { pad2 } from "@/lib/format";
 import { type Locale, navViews, parentView, viewPath, views } from "@/lib/i18n";
 
 type DiskNavProps = {
@@ -51,7 +52,7 @@ export function DiskNav({ locale, labels }: DiskNavProps) {
                 aria-current={current ? "page" : undefined}
                 className={[
                   "relative flex h-full min-h-11 items-center justify-center truncate px-1",
-                  "font-mono text-[max(0.6875rem,2.2cqw)] tracking-[0.08em] uppercase",
+                  "type-body tracking-[0.08em] uppercase",
                   "transition-colors duration-150 sm:focus-visible:outline-label",
                   current
                     ? "bg-desk-text text-desk sm:bg-label sm:text-ink"
@@ -62,10 +63,10 @@ export function DiskNav({ locale, labels }: DiskNavProps) {
                   aria-hidden
                   className={[
                     "absolute top-[max(0.125rem,0.5cqw)] left-[max(0.25rem,1cqw)] text-[max(0.5rem,1.5cqw)] tracking-[0.04em]",
-                    current ? "text-desk/70 sm:text-pencil" : "text-desk-text/60 sm:text-disk-text/60",
+                    current ? "text-desk/70 sm:text-pencil" : "text-desk-text/80 sm:text-disk-text/80",
                   ].join(" ")}
                 >
-                  {String(index).padStart(2, "0")}
+                  {pad2(index)}
                 </span>
                 {labels[view]}
               </Link>
