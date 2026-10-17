@@ -2,19 +2,16 @@ import { site } from "@/content/site";
 import { IntroScript } from "./IntroScript";
 
 /*
- * Runs before first paint, so a returning visitor never sees the intro flash.
- * Plays once per browser session, never with reduced motion, and leaves the
- * page untouched if storage is blocked. It only ever writes to <html>, which
- * React leaves alone; the CSS for each step is in globals.css.
+ * Runs before first paint, so the page never shows before the intro covers it.
+ * Plays on every full page load. With reduced motion the loader still shows,
+ * but nothing moves. It only ever writes to <html>, which React leaves alone;
+ * the CSS for each step is in globals.css. The end-to-end tests set
+ * window.__skipIntro so they can check pages without waiting.
  */
 const script = `(() => {
+  if (window.__skipIntro) return;
   const root = document.documentElement;
-  try {
-    if (sessionStorage.getItem("intro") || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    sessionStorage.setItem("intro", "1");
-  } catch {
-    return;
-  }
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
   root.dataset.intro = "play";
 
   function start() {
@@ -29,7 +26,7 @@ const script = `(() => {
       root.dataset.intro = "leaving";
       from.animate(
         [{ transform: "none" }, { transform: "translate(" + (b.left - a.left) + "px, " + (b.top - a.top) + "px)" }],
-        { duration: 650, easing: "cubic-bezier(0.65, 0, 0.35, 1)", fill: "forwards" },
+        { duration: still ? 0 : 650, easing: "cubic-bezier(0.65, 0, 0.35, 1)", fill: "forwards" },
       ).onfinish = () => {
         root.dataset.intro = "done";
         // Once the score rings have filled, later pages animate on their own timing.
@@ -44,14 +41,14 @@ const script = `(() => {
   });
 })();`;
 
-/** The domain, centred over a thin loading line, on the first page of a visit. */
+/** The domain, centred over a thin loading line, on every page load. */
 export function Intro() {
   return (
     <>
       <IntroScript code={script} />
       <div id="intro" className="intro" aria-hidden>
         <div>
-          <span id="intro-mark" className="inline-block wordmark">
+          <span id="intro-mark" className="wordmark inline-block">
             {site.domain}
           </span>
           <div className="intro-bar">

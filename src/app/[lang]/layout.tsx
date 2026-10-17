@@ -2,6 +2,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import { DotField } from "@/components/DotField";
 import { Header } from "@/components/Header";
 import { Intro } from "@/components/Intro";
 import { site } from "@/content/site";
@@ -50,15 +51,16 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   return (
     // The intro script sets data-intro on <html> before React hydrates.
     <html lang={lang} className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
-      <body className="bg-bg font-sans text-fg antialiased">
+      <body className="relative bg-bg font-sans text-fg antialiased">
         <Intro />
+        <DotField />
         <a
           href="#main"
           className="fixed top-3 left-3 z-[60] -translate-y-20 rounded-full bg-fg px-4 py-2 text-sm text-bg focus:translate-y-0"
         >
           {dict.skip}
         </a>
-        <div className="px-[max(1rem,env(safe-area-inset-left))] sm:px-8">
+        <div className="relative px-[max(1rem,env(safe-area-inset-left))] sm:px-8">
           <div className="mx-auto flex min-h-dvh max-w-[65rem] flex-col">
             <Header locale={lang} nav={dict.nav} language={dict.language} />
             <main id="main" className="flex-1">

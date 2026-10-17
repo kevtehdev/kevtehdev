@@ -36,17 +36,39 @@
 
   --font-display: var(--font-familjen), var(--font-plex-sans), system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
-  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
 /* The domain as a wordmark: in the header, and centred while the intro loads. */
 @utility wordmark {
   font-family: var(--font-mono);
-  font-weight: 500;
+  font-weight: 700;
   font-size: 0.9375rem;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
+
+  /* A terminal cursor after the domain, blinking like a prompt waiting for input. */
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 0.6em;
+    height: 1.05em;
+    margin-left: 0.15em;
+    vertical-align: -0.18em;
+    background: var(--pass);
+    animation: blink 1.1s steps(1, end) infinite;
+
+    @media (prefers-reduced-motion: reduce) {
+      animation: none !important;
+    }
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
 }
 
 /* Small uppercase labels: eyebrows, captions, the footer. */
@@ -69,10 +91,10 @@
 }
 
 /*
- * The intro: on the first page of a visit the wordmark sits centred over a
+ * The intro: on every page load the wordmark sits centred over a
  * thin loading line, then moves into the header while the page fades in.
  * The inline script in Intro.tsx drives html[data-intro]: play → loading → leaving → done.
- * Without that script (or with reduced motion) none of this applies.
+ * It plays on every full page load. Without JavaScript none of this applies.
  */
 .intro {
   display: none;
@@ -87,9 +109,12 @@ html:is([data-intro="play"], [data-intro="loading"], [data-intro="leaving"]) .in
   background: var(--bg);
 }
 
-/* If the script ever stalls, the page still shows up. */
+/*
+ * If the script ever stalls, the page still shows up. Marked important so the
+ * reduced-motion rule below can't shorten the delay and hide the loader at once.
+ */
 html:is([data-intro="play"], [data-intro="loading"]) .intro {
-  animation: intro-failsafe 0s 5s forwards;
+  animation: intro-failsafe 0s 5s forwards !important;
 }
 
 @keyframes intro-failsafe {
@@ -176,14 +201,19 @@ html[data-intro] .ring-arc {
     outline-offset: 3px;
     border-radius: 2px;
   }
+}
 
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-delay: 0ms !important;
-      transition-duration: 0.01ms !important;
-    }
+/*
+ * Reduced motion. Kept outside @layer base on purpose: an !important inside a
+ * layer beats any !important outside it, which would stop the intro's failsafe
+ * delay and the still cursor from opting out.
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
   }
 }

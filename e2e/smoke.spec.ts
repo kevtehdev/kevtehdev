@@ -1,5 +1,15 @@
 import AxeBuilder from "@axe-core/playwright";
-import { expect, test } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
+
+// The intro plays on every page load; most tests check the page underneath, so they skip it.
+const test = base.extend({
+  page: async ({ page }, run) => {
+    await page.addInitScript(() => {
+      (window as Window & { __skipIntro?: boolean }).__skipIntro = true;
+    });
+    await run(page);
+  },
+});
 
 const pages = ["/en", "/sv", "/en/case", "/en/brief", "/en/skills", "/en/contact", "/sv/about", "/sv/now"];
 
@@ -50,18 +60,22 @@ test.describe("navigation", () => {
   });
 });
 
-test.describe("intro", () => {
-  test.use({ reducedMotion: "no-preference" });
+base.describe("intro", () => {
+  base("plays on every page load, then hands the wordmark to the header", async ({ page }) => {
+    for (const path of ["/en", "/en/case"]) {
+      await page.goto(path);
+      await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
+      await expect(page.locator("#intro")).toBeVisible();
+      await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
+      await expect(page.locator("#site-mark")).toBeVisible();
+    }
+  });
 
-  test("plays once per visit, then hands the wordmark to the header", async ({ page }) => {
+  base("still shows with reduced motion, without moving", async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.goto("/en");
-    await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
     await expect(page.locator("#intro")).toBeVisible();
     await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
-    await expect(page.locator("#site-mark")).toBeVisible();
-
-    await page.goto("/en/case");
-    await expect(page.locator("#intro")).toBeHidden();
   });
 });
 

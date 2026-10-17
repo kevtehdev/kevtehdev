@@ -21,7 +21,7 @@ export function Header({ locale, nav, language }: HeaderProps) {
 
   return (
     <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
-      <Link id="site-mark" href={viewPath(locale, "home")} className="flex min-h-11 items-center wordmark">
+      <Link id="site-mark" href={viewPath(locale, "home")} className="wordmark flex min-h-11 items-center">
         {site.domain}
       </Link>
       <div data-reveal className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
