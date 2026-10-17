@@ -12,15 +12,15 @@ const dictionaries = { en, sv } as const;
 
 export const getDictionary = (locale: Locale) => dictionaries[locale];
 
-/** Views in the nav strip, in tab order. "home" is the locale root. */
-export const navViews = ["home", "case", "now", "about", "contact"] as const;
+/** Views in the header menu, in order. "home" is the locale root, reached from the wordmark. */
+export const navViews = ["case", "now", "about", "contact"] as const;
 
-/** Every view on the disk: the nav views plus files opened from Home. */
-export const views = [...navViews, "upgrade", "roadmap", "brief", "skills"] as const;
+/** Every view: home, the menu views, and pages opened from inside them. */
+export const views = ["home", ...navViews, "brief", "skills"] as const;
 
 export type View = (typeof views)[number];
 
-/** Files opened from inside another view, mapped to that view. They get no nav slot of their own. */
+/** Pages opened from inside another view, mapped to that view. The menu marks the parent as current. */
 export const parentView: Partial<Record<View, View>> = { brief: "case", skills: "about" };
 
 /** Prerendered as a 404; the proxy rewrites unknown views here (see [view]/page.tsx). */

@@ -1,20 +1,19 @@
 import { site } from "@/content/site";
-import { Body, Kicker, Label, Title } from "../disk/Label";
-import type { ViewProps } from "./parts";
+import { Body, Eyebrow, Page, Title, type ViewProps } from "./parts";
 
 export function Now({ locale, dict }: ViewProps) {
   return (
-    <Label>
-      <Kicker>
-        <span className="text-ink">{dict.now.correction || dict.now.status}</span>
+    <Page>
+      <Eyebrow>
+        <span className="text-fg">{dict.now.correction || dict.now.status}</span>
         <span
           aria-hidden
-          className="ml-[0.3em] inline-block h-[0.9em] w-[0.5em] translate-y-[0.12em] animate-pulse bg-ink"
+          className="ml-[0.4em] inline-block size-[0.55em] animate-pulse rounded-full bg-pass align-[0.05em]"
         />{" "}
         · {dict.now.due} {site.nowDue[locale]}
-      </Kicker>
+      </Eyebrow>
       <Title>{dict.now.title}</Title>
       <Body>{dict.now.body}</Body>
-    </Label>
+    </Page>
   );
 }

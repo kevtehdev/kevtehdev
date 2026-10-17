@@ -8,7 +8,8 @@ export default defineConfig({
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? "github" : "list",
-  use: { baseURL: `http://localhost:${port}`, trace: "on-first-retry" },
+  // Reduced motion skips the intro, so tests see the page at once. The intro has its own test.
+  use: { baseURL: `http://localhost:${port}`, trace: "on-first-retry", reducedMotion: "reduce" },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile", use: { ...devices["Pixel 7"] } },

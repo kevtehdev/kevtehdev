@@ -1,54 +1,81 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
 import type { Dictionary } from "@/content/dictionaries/en";
-import { site } from "@/content/site";
 import type { Locale } from "@/lib/i18n";
-import { Kicker } from "../disk/Label";
 
 export type ViewProps = { locale: Locale; dict: Dictionary };
 
-/** A quiet underlined link in running text. */
-export const link = "underline decoration-ink/30 underline-offset-[0.2em] hover:decoration-ink";
-
-/** The one solid ink button a view ends on. */
-export function CtaLink({ href, children }: { href: string; children: ReactNode }) {
+/** Every view is one column under the header, with its parts revealed together after the intro. */
+export function Page({ children }: { children: ReactNode }) {
   return (
-    <Link
-      href={href}
-      prefetch
-      className="bg-ink px-[1.5cqw] py-[0.3cqw] tracking-[0.08em] text-label uppercase hover:bg-ink-soft"
+    <div data-reveal className="flex flex-col gap-7 pt-[clamp(2rem,8vh,6.5rem)] pb-16">
+      {children}
+    </div>
+  );
+}
+
+export function Eyebrow({ children }: { children: ReactNode }) {
+  return <p className="eyebrow">{children}</p>;
+}
+
+/** The page's one big statement. Home sets it a size larger. */
+export function Title({ children, size = "page" }: { children: ReactNode; size?: "home" | "page" }) {
+  return (
+    <h1
+      className={[
+        "max-w-[20ch] font-display font-semibold tracking-[-0.025em] text-balance",
+        size === "home"
+          ? "text-[clamp(2rem,5.4vw,3.625rem)] leading-[1.05]"
+          : "text-[clamp(1.875rem,4.2vw,2.75rem)] leading-[1.08]",
+      ].join(" ")}
     >
+      {children}
+    </h1>
+  );
+}
+
+export function Lead({ children }: { children: ReactNode }) {
+  return <p className="max-w-[52ch] text-[1.0625rem] leading-relaxed text-pretty text-muted">{children}</p>;
+}
+
+export function Body({ children }: { children: ReactNode }) {
+  return <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-pretty">{children}</p>;
+}
+
+/** A titled part of a longer page, like the sections of the brief. */
+export function Section({ heading, children }: { heading: string; children: ReactNode }) {
+  return (
+    <section className="flex flex-col gap-3 border-t border-rule pt-6">
+      <h2 className="font-display text-[1.375rem] leading-tight font-medium tracking-[-0.01em]">{heading}</h2>
+      {children}
+    </section>
+  );
+}
+
+export function Actions({ children }: { children: ReactNode }) {
+  return <div className="flex flex-wrap items-center gap-3 pt-2">{children}</div>;
+}
+
+const button = "inline-flex min-h-11 items-center rounded-full border border-fg px-[1.125rem] text-[0.9375rem]";
+
+/** The solid button a page ends on, e.g. "Have a project?". */
+export function PrimaryLink({ href, children }: { href: string; children: ReactNode }) {
+  return (
+    <Link href={href} prefetch className={`${button} bg-fg text-bg hover:opacity-85`}>
       {children}
     </Link>
   );
 }
 
-/** The latest case's Lighthouse scores, with a link to run the test yourself. */
-export function Figures({ dict, className = "" }: { dict: Dictionary; className?: string }) {
-  return (
-    <>
-      {/* A scorecard, 2 × 2 on wide labels: scores right-aligned in one column, so the labels line up. */}
-      <dl className={`grid gap-x-[4cqw] @md:grid-cols-2 ${className}`}>
-        {dict.case.figures.map((figure) => (
-          <div key={figure.label} className="flex min-w-0 flex-row-reverse items-baseline justify-end gap-[1.5cqw]">
-            <dt className="type-small tracking-[0.04em] text-pencil uppercase">{figure.label}</dt>
-            {/* Line-height 0 keeps the big serif from stretching the row off the ruled line. */}
-            <dd className="min-w-[2.6em] shrink-0 text-right type-title leading-0 whitespace-nowrap tabular-nums">
-              {figure.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
-      <Kicker>
-        {dict.case.figuresSource} ·{" "}
-        <a
-          href={site.latestCase.pagespeed}
-          className="whitespace-nowrap text-pass underline decoration-pass/40 underline-offset-[0.2em] hover:decoration-pass"
-          rel="noopener"
-        >
-          {dict.case.test} ↗
-        </a>
-      </Kicker>
-    </>
+export function SecondaryLink({ href, children }: { href: string; children: ReactNode }) {
+  const className = `${button} hover:bg-fg/5`;
+  return href.startsWith("http") ? (
+    <a href={href} className={className} rel="noopener">
+      {children}
+    </a>
+  ) : (
+    <Link href={href} prefetch className={className}>
+      {children}
+    </Link>
   );
 }

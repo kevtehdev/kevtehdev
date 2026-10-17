@@ -1,24 +1,19 @@
-import Link from "next/link";
 import { site } from "@/content/site";
 import { viewPath } from "@/lib/i18n";
-import { Body, Kicker, Label, Title } from "../disk/Label";
-import { Figures, type ViewProps, link } from "./parts";
+import { Scores } from "../Scores";
+import { Actions, Body, Eyebrow, Page, SecondaryLink, Title, type ViewProps } from "./parts";
 
 export function Case({ locale, dict }: ViewProps) {
   return (
-    <Label>
-      <Kicker>{dict.case.kicker}</Kicker>
+    <Page>
+      <Eyebrow>{dict.case.kicker}</Eyebrow>
       <Title>{dict.case.title}</Title>
       <Body>{dict.case.body}</Body>
-      <Figures dict={dict} className="mt-[var(--line)]" />
-      <p className="mt-[var(--line)] flex flex-wrap gap-x-[3cqw] type-body">
-        <a href={site.latestCase.url} className={link} rel="noopener">
-          {dict.case.link} ↗
-        </a>
-        <Link href={viewPath(locale, "brief")} prefetch className={link}>
-          {dict.case.brief} →
-        </Link>
-      </p>
-    </Label>
+      <Scores dict={dict} />
+      <Actions>
+        <SecondaryLink href={viewPath(locale, "brief")}>{dict.case.brief} →</SecondaryLink>
+        <SecondaryLink href={site.latestCase.url}>{dict.case.link} ↗</SecondaryLink>
+      </Actions>
+    </Page>
   );
 }

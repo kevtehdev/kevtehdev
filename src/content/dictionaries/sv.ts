@@ -6,15 +6,14 @@ export const sv: Dictionary = {
     description:
       "Kevin bygger snabba webbplatser åt små företag, och adminverktygen bakom dem. Next.js, TypeScript och Payload CMS, från Linköping.",
   },
+  skip: "Hoppa till innehållet",
   nav: {
-    label: "Vyer",
+    label: "Huvudmeny",
     home: "Hem",
     case: "Case",
     now: "Nu",
     about: "Om",
     contact: "Kontakt",
-    upgrade: "Uppgradering",
-    roadmap: "Färdplan",
     brief: "Brief",
     skills: "Kunskap",
   },
@@ -24,20 +23,10 @@ export const sv: Dictionary = {
     sv: "Svenska",
   },
   home: {
-    vol: (number: number) => `vol. ${number}`,
-    greeting: "Hej, du hittade min diskett.",
-    line: "Jag bygger snabba sajter, och adminverktygen bakom dem.",
-    files: {
-      case: "CASE.TXT",
-      now: "NU.TXT",
-      about: "LÄSMIG.TXT",
-      contact: "KONTAKT.TXT",
-      upgrade: "UPPGRADERA.TXT",
-      roadmap: "FÄRDPLAN.TXT",
-      brief: "BRIEF.TXT",
-      skills: "KUNSKAP.TXT",
-    },
-    fileCount: "filer",
+    title: "Snabba sajter, och adminverktygen bakom dem.",
+    lead: "För små företag som vill publicera själva och behålla sina placeringar på Google. Byggt i Linköping med Next.js, TypeScript och Payload CMS.",
+    cta: "Har du ett projekt?",
+    brief: "Läs briefen om Warde",
     available: "Ledig från",
     availableNow: "Ledig nu",
   },
@@ -64,9 +53,9 @@ export const sv: Dictionary = {
     body: "En ny webbplats för en fastighetskoncern, gjord för att kännas som en del av samma familj som Warde.",
   },
   about: {
-    kicker: "LÄSMIG.TXT",
-    title: "Om mig",
-    body: "Disketten innehåller mig, en fullstackutvecklare från Linköping, och några saker jag bryr mig om som ingen märker förrän de saknas: sidor som laddar direkt, adminpaneler som går att förstå, kod som någon annan kan läsa nästa år. Det lärde jag mig genom att skriva C och C++, där slarvig kod inte bara blir långsam, den kraschar. Nu tar jag med mig den disciplinen till webben.",
+    kicker: "Om mig",
+    title: "Hej, jag heter Kevin.",
+    body: "Jag är fullstackutvecklare från Linköping och bryr mig om några saker som ingen märker förrän de saknas: sidor som laddar direkt, adminpaneler som går att förstå, kod som någon annan kan läsa nästa år. Det lärde jag mig genom att skriva C och C++, där slarvig kod inte bara blir långsam, den kraschar. Nu tar jag med mig den disciplinen till webben.",
     skills: "Vad jag jobbar med, och hur →",
   },
   contact: {
@@ -77,7 +66,7 @@ export const sv: Dictionary = {
     copied: "Kopierad",
   },
   skills: {
-    kicker: "KUNSKAP.TXT",
+    kicker: "Kunskap",
     title: "Vad jag kan hjälpa till med, och hur jag jobbar.",
     helpHeading: "Det här kan jag hjälpa till med",
     help: [
@@ -109,7 +98,7 @@ export const sv: Dictionary = {
     cta: "Har du ett projekt? →",
   },
   brief: {
-    kicker: "BRIEF.TXT · Warde Property · Nice · 2026",
+    kicker: "Case · Warde Property · Nice · 2026",
     title: "Från ett hyrt admin till ett eget.",
     sections: [
       {
@@ -134,42 +123,5 @@ export const sv: Dictionary = {
     stack: "Teknik",
     tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
     back: "← Tillbaka till caset",
-  },
-  roadmap: {
-    title: "Den här sajten växer med mitt arbete.",
-    short: "Vart sajten är på väg",
-    here: (percent: number) => `Här · ${percent} %`,
-    at: (count: number) => `Vid ${count}`,
-    status: (shipped: number, toGo: number, medium: string) =>
-      `${shipped} levererat · ${toGo} till för att låsa upp ${medium}`,
-    done: (shipped: number) => `${shipped} projekt levererade · fullt uppgraderad`,
-  },
-  upgrade: {
-    title: "Diskett 1 av många.",
-    body: "Den här sajten växer med mitt arbete. Varje projekt jag levererar fyller disketten, och när den är full uppgraderas sajten till nästa medium.",
-    used: "använt",
-    hint: "Varje projekt jag levererar fyller disketten. När den är full uppgraderas sajten.",
-    full: (percent: number) => `${percent} % full`,
-    unlock: (count: number, medium: string) => `Vid ${count} projekt blir sajten en ${medium}.`,
-    cta: (number: number) => `Bli projekt #${number} →`,
-    yours: "[ ditt projekt? ]",
-    status: { shipped: "Levererat", writing: "Skrivs…", free: "Ledigt" },
-    media: { floppy: "diskett", cdrom: "CD-ROM", hdd: "hårddisk", ssd: "SSD", server: "serverhall" },
-    usage: "Diskanvändning",
-    summary: (shipped: number, writing: number, medium: string, at: number) =>
-      `${shipped} levererat · ${writing} pågår · nästa: ${medium} vid ${at}`,
-    toGo: (count: number) => `${count} projekt kvar`,
-    filled: "Fylld",
-    notice: {
-      bar: "A:\\ · Disketten är full",
-      title: (capacity: string) => `${capacity} av ${capacity} använt.`,
-      body: (count: number, medium: string) => `${count} projekt levererade. Tack! Kopierar allt till en ${medium}…`,
-      later: "Senare",
-      show: "Visa mig",
-    },
-    seeRoadmap: "Se hela uppgraderingsvägen →",
-    tracks: "Spår",
-    peek: "Smygtitt · CD-ROM-utgåvan",
-    discLine: "webbplatser + admin",
   },
 };

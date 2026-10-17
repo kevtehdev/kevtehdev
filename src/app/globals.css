@@ -1,182 +1,182 @@
 @import "tailwindcss";
 
 /*
- * Tokens. The disk is drawn in CSS, so these double as its materials.
- * Sizes inside the disk use container query units (cqw): everything on
- * it scales with the disk, with a floor so text never gets too small.
+ * Tokens. One quiet page: cool off-white (near-black in dark mode), ink text,
+ * and Lighthouse's pass green as the only accent, because the scores are the
+ * point. Colours switch with the visitor's system theme.
  */
-@theme inline {
-  /*
-   * The desktop behind the disk: platinum grey with a 1-pixel dither.
-   * For ink blue instead: desk #1f2a3a, desk-text #c2cbda, dither #1c2636 / #222e40.
-   */
-  --color-desk: #dcdcdc;
-  --color-desk-text: #1d1e20;
-  --color-dither-a: #cdcdcd;
-  --color-dither-b: #e4e4e4;
-  --color-menubar: #f4f4f4;
-  --color-ink: #1d1e20;
-  --color-ink-soft: #55575b;
-  --color-disk: var(--disk, #1d1e20);
-  --color-disk-edge: #45474b;
-  --color-disk-text: #b9babd;
-  --color-metal: #c3c6ca;
-  --color-metal-edge: #8f9297;
-  /* The magnetic disk seen through the shutter window: a shade under the body. */
-  --color-media: #141517;
-  --color-emboss: #18191b;
-  --color-label: #f3f0e7;
-  --color-rule: #ddd7c8;
-  --color-pencil: #5a564d;
-  /* Lighthouse's pass green, darkened to read on the label (5.4:1). */
-  --color-pass: #2a6f36;
-  --color-case: #dfe2e5;
-  --color-case-edge: #aeb2b7;
+:root {
+  --bg: #f5f6f8;
+  --fg: #15181d;
+  --muted: #5d6471;
+  --rule: #dde0e6;
+  --pass: #1d7a3c;
+  --panel: #ffffff;
+}
 
-  --font-serif: var(--font-instrument-serif), Georgia, serif;
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101216;
+    --fg: #e9ebef;
+    --muted: #9aa1af;
+    --rule: #262a32;
+    --pass: #5cc47e;
+    --panel: #181b21;
+    color-scheme: dark;
+  }
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-rule: var(--rule);
+  --color-pass: var(--pass);
+  --color-panel: var(--panel);
+
+  --font-display: var(--font-familjen), var(--font-plex-sans), system-ui, sans-serif;
   --font-sans: var(--font-plex-sans), system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), ui-monospace, monospace;
-  --font-wordmark: var(--font-michroma), ui-sans-serif, sans-serif;
 }
 
-:root {
-  /* One ruled line on the label. Text sits on this rhythm. */
-  --line: max(1rem, 3.6cqw);
+/* The domain as a wordmark: in the header, and centred while the intro loads. */
+@utility wordmark {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 0.9375rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
 }
 
-@utility ruled {
-  line-height: var(--line);
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent calc(var(--line) - 1px),
-    var(--color-rule) calc(var(--line) - 1px),
-    var(--color-rule) var(--line)
-  );
-  /* Rules start where the text starts, so each line of text sits on one. */
-  background-origin: content-box;
-  /* Lines scroll with the text instead of staying put behind it. */
-  background-attachment: local;
+/* Small uppercase labels: eyebrows, captions, the footer. */
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+@utility link {
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  &:hover {
+    text-decoration-color: currentColor;
+  }
 }
 
 /*
- * Type scale on the label. Each sets family and size only, so tracking,
- * colour and case stay free to vary per use.
+ * The intro: on the first page of a visit the wordmark sits centred over a
+ * thin loading line, then moves into the header while the page fades in.
+ * The inline script in Intro.tsx drives html[data-intro]: play → leaving → done.
+ * Without that script (or with reduced motion) none of this applies.
  */
-@utility type-title {
-  font-family: var(--font-serif);
-  font-size: max(0.9375rem, 3.4cqw);
+.intro {
+  display: none;
 }
 
-@utility type-body {
-  font-family: var(--font-mono);
-  font-size: max(0.6875rem, 2.2cqw);
+html[data-intro="play"] .intro,
+html[data-intro="leaving"] .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
 }
 
-@utility type-small {
-  font-family: var(--font-mono);
-  font-size: max(0.625rem, 1.9cqw);
+/* If the script ever stalls, the page still shows up. */
+html[data-intro="play"] .intro {
+  animation: intro-failsafe 0s 5s forwards;
 }
 
-@utility disk-shape {
-  /* 3.5" diskette: square body with the top right corner cut off. */
-  clip-path: polygon(0 0, 95% 0, 100% 4.6%, 100% 100%, 0 100%);
-}
-
-@utility hatch {
-  /* Diagonal hatching in the current text colour, for hovered sectors. */
-  background-image: repeating-linear-gradient(
-    135deg,
-    color-mix(in srgb, currentColor 14%, transparent) 0 2px,
-    transparent 2px 6px
-  );
-}
-
-@utility brushed-metal {
-  /* Aluminium shutter: soft light falloff over fine horizontal brushing. */
-  background-color: var(--color-metal);
-  background-image:
-    repeating-linear-gradient(to bottom, rgb(255 255 255 / 0.04) 0 1px, transparent 1px 3px),
-    linear-gradient(to right, #c4c7cb, #d8dbde 30%, #ccd0d3 60%, #d5d8db 85%, #c2c5c9);
-}
-
-@utility emboss {
-  /* Lettering moulded into the plastic: same black, lit from above. */
-  color: var(--color-emboss);
-  text-shadow:
-    0 1px 0 rgb(255 255 255 / 0.07),
-    0 -1px 0 rgb(0 0 0 / 0.5);
-}
-
-@utility desktop-dither {
-  /* A 1-pixel checker, like a 90s desktop pattern. */
-  background-color: var(--color-desk);
-  background-image: repeating-conic-gradient(var(--color-dither-a) 0 25%, var(--color-dither-b) 0 50%);
-  background-size: 2px 2px;
-}
-
-@utility disc-sheen {
-  /* The rainbow sheen on the data side of a CD. */
-  background-image: conic-gradient(
-    from 210deg,
-    #d9dde2,
-    #f2e6cf,
-    #cfe4e7,
-    #e4d4ea,
-    #d9dde2,
-    #efe5c4,
-    #cfdbe9,
-    #e8d6dc,
-    #d9dde2
-  );
-}
-
-@keyframes spin-once {
+@keyframes intro-failsafe {
   to {
-    transform: rotate(360deg);
+    visibility: hidden;
   }
 }
 
-@utility animate-spin-once {
-  animation: spin-once 900ms cubic-bezier(0.3, 0.7, 0.3, 1);
+.intro-bar {
+  height: 1px;
+  margin-top: 0.875rem;
+  background: var(--rule);
+  overflow: hidden;
 }
 
-@keyframes copy {
+.intro-bar span {
+  display: block;
+  height: 100%;
+  background: var(--fg);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.intro[data-state="loading"] .intro-bar span {
+  transform: scaleX(1);
+  transition: transform 1400ms cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+html[data-intro="leaving"] .intro {
+  background: transparent;
+  pointer-events: none;
+  transition: background 300ms 250ms;
+}
+
+html[data-intro="leaving"] .intro-bar {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+html[data-intro="play"] #site-mark,
+html[data-intro="leaving"] #site-mark {
+  visibility: hidden;
+}
+
+html[data-intro="play"] [data-reveal] {
+  opacity: 0;
+  translate: 0 8px;
+}
+
+html[data-intro="leaving"] [data-reveal] {
+  transition:
+    opacity 500ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    translate 500ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* Lighthouse-style score rings fill once the page is up. */
+@keyframes ring-fill {
   from {
-    clip-path: inset(0 100% 0 0);
+    stroke-dashoffset: 125.66;
   }
 }
 
-@utility animate-copy {
-  /* Reveals a 12-segment bar one segment at a time. */
-  animation: copy 1.6s steps(12, end);
+.ring-arc {
+  stroke-dasharray: 125.66;
+  animation: ring-fill 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) 300ms backwards;
 }
 
-@keyframes insert {
-  from {
-    opacity: 0;
-    transform: translateY(0.35rem);
-  }
-}
-
-@utility animate-insert {
-  animation: insert 180ms ease-out;
+html[data-intro] .ring-arc {
+  animation-delay: 1900ms;
 }
 
 @layer base {
   html {
-    background: var(--color-desk);
-    color: var(--color-ink);
+    background: var(--bg);
+    color: var(--fg);
   }
 
   ::selection {
-    background: var(--color-ink);
-    color: var(--color-label);
+    background: var(--fg);
+    color: var(--bg);
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-ink);
-    outline-offset: 2px;
+    outline: 2px solid var(--fg);
+    outline-offset: 3px;
+    border-radius: 2px;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -184,6 +184,7 @@
     *::before,
     *::after {
       animation-duration: 0.01ms !important;
+      animation-delay: 0ms !important;
       transition-duration: 0.01ms !important;
     }
   }

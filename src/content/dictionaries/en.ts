@@ -4,15 +4,14 @@ export const en = {
     description:
       "Kevin builds fast websites for small companies, and the admin tools behind them. Next.js, TypeScript and Payload CMS, from Linköping, Sweden.",
   },
+  skip: "Skip to content",
   nav: {
-    label: "Views",
+    label: "Main menu",
     home: "Home",
     case: "Case",
     now: "Now",
     about: "About",
     contact: "Contact",
-    upgrade: "Upgrade",
-    roadmap: "Roadmap",
     brief: "Brief",
     skills: "Skills",
   },
@@ -22,20 +21,10 @@ export const en = {
     sv: "Svenska",
   },
   home: {
-    vol: (number: number) => `vol. ${number}`,
-    greeting: "Hey, you found my disk.",
-    line: "I build fast websites, and the admin tools behind them.",
-    files: {
-      case: "CASE.TXT",
-      now: "NOW.TXT",
-      about: "README.TXT",
-      contact: "CONTACT.TXT",
-      upgrade: "UPGRADE.TXT",
-      roadmap: "ROADMAP.TXT",
-      brief: "BRIEF.TXT",
-      skills: "SKILLS.TXT",
-    },
-    fileCount: "files",
+    title: "Fast websites, and the admin tools behind them.",
+    lead: "For small companies that want to publish on their own and keep their Google rankings. Built in Linköping with Next.js, TypeScript and Payload CMS.",
+    cta: "Have a project?",
+    brief: "Read the Warde brief",
     available: "Available from",
     availableNow: "Available now",
   },
@@ -63,9 +52,9 @@ export const en = {
     body: "A new website for a property group, built to feel like part of the same family as Warde.",
   },
   about: {
-    kicker: "README.TXT",
-    title: "About",
-    body: "This disk contains me, a fullstack developer from Linköping, and a few things I care about that nobody notices until they’re missing: pages that load instantly, admin panels that make sense, code someone else can read next year. I picked that up writing C and C++, where sloppy code doesn’t just slow down, it crashes. Now I bring that discipline to the web.",
+    kicker: "About",
+    title: "Hi, I’m Kevin.",
+    body: "I’m a fullstack developer from Linköping, and I care about a few things that nobody notices until they’re missing: pages that load instantly, admin panels that make sense, code someone else can read next year. I picked that up writing C and C++, where sloppy code doesn’t just slow down, it crashes. Now I bring that discipline to the web.",
     skills: "What I work with, and how I work →",
   },
   contact: {
@@ -76,7 +65,7 @@ export const en = {
     copied: "Copied",
   },
   skills: {
-    kicker: "SKILLS.TXT",
+    kicker: "Skills",
     title: "What I can help with, and how I work.",
     helpHeading: "What I can help with",
     help: [
@@ -108,7 +97,7 @@ export const en = {
     cta: "Have a project? →",
   },
   brief: {
-    kicker: "BRIEF.TXT · Warde Property · Nice · 2026",
+    kicker: "Case study · Warde Property · Nice · 2026",
     title: "From a rented admin to one they own.",
     sections: [
       {
@@ -133,44 +122,6 @@ export const en = {
     stack: "Stack",
     tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
     back: "← Back to the case",
-  },
-  roadmap: {
-    title: "This site grows with my work.",
-    short: "Where this site is headed",
-    here: (percent: number) => `Here · ${percent}%`,
-    at: (count: number) => `At ${count}`,
-    status: (shipped: number, toGo: number, medium: string) =>
-      `${shipped} ${shipped === 1 ? "project" : "projects"} shipped · ${toGo} more to unlock the ${medium}`,
-    done: (shipped: number) => `${shipped} projects shipped · fully upgraded`,
-  },
-  upgrade: {
-    title: "Disk 1 of many.",
-    body: "This site grows with my work. Every project I ship fills the disk, and when it’s full, the site upgrades to the next medium.",
-    used: "used",
-    hint: "Each project I ship fills the disk. When it’s full, this site upgrades.",
-    full: (percent: number) => `${percent}% full`,
-    unlock: (count: number, medium: string) => `At ${count} projects this site becomes a ${medium}.`,
-    cta: (number: number) => `Be project #${number} →`,
-    yours: "[ your project? ]",
-    status: { shipped: "Shipped", writing: "Writing…", free: "Free" },
-    media: { floppy: "floppy disk", cdrom: "CD-ROM", hdd: "hard drive", ssd: "SSD", server: "server rack" },
-    usage: "Disk usage",
-    summary: (shipped: number, writing: number, medium: string, at: number) =>
-      `${shipped} shipped · ${writing} writing · next: ${medium} at ${at}`,
-    toGo: (count: number) => `${count} ${count === 1 ? "project" : "projects"} to go`,
-    filled: "Filled",
-    notice: {
-      bar: "A:\\ · Disk full",
-      title: (capacity: string) => `${capacity} of ${capacity} used.`,
-      body: (count: number, medium: string) =>
-        `${count} projects shipped. Thank you. Copying everything to a ${medium}…`,
-      later: "Later",
-      show: "Show me",
-    },
-    seeRoadmap: "See the whole upgrade path →",
-    tracks: "Tracks",
-    peek: "Sneak peek · the CD-ROM edition",
-    discLine: "websites + admin",
   },
 };
 

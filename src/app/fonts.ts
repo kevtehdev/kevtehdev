@@ -2,19 +2,18 @@ import localFont from "next/font/local";
 
 // Self-hosted (SIL OFL), so no request ever leaves for a font CDN.
 
-export const serif = localFont({
+export const display = localFont({
   src: [
-    { path: "../fonts/instrument-serif-latin-400-normal.woff2", weight: "400", style: "normal" },
-    { path: "../fonts/instrument-serif-latin-400-italic.woff2", weight: "400", style: "italic" },
+    { path: "../fonts/familjen-grotesk-latin-500-normal.woff2", weight: "500", style: "normal" },
+    { path: "../fonts/familjen-grotesk-latin-600-normal.woff2", weight: "600", style: "normal" },
   ],
-  variable: "--font-instrument-serif",
+  variable: "--font-familjen",
   display: "swap",
-  fallback: ["Georgia", "serif"],
+  fallback: ["system-ui", "sans-serif"],
 });
 
 export const sans = localFont({
   src: [
-    { path: "../fonts/ibm-plex-sans-latin-300-normal.woff2", weight: "300", style: "normal" },
     { path: "../fonts/ibm-plex-sans-latin-400-normal.woff2", weight: "400", style: "normal" },
     { path: "../fonts/ibm-plex-sans-latin-500-normal.woff2", weight: "500", style: "normal" },
   ],
@@ -31,13 +30,4 @@ export const mono = localFont({
   variable: "--font-plex-mono",
   display: "swap",
   fallback: ["ui-monospace", "monospace"],
-});
-
-// Wordmark on the CD-ROM edition only, so it isn't preloaded on every page.
-export const wordmark = localFont({
-  src: [{ path: "../fonts/michroma-latin-400-normal.woff2", weight: "400", style: "normal" }],
-  variable: "--font-michroma",
-  display: "swap",
-  preload: false,
-  fallback: ["ui-sans-serif", "sans-serif"],
 });

@@ -8,9 +8,7 @@ import { Contact } from "./Contact";
 import { Home } from "./Home";
 import { Now } from "./Now";
 import type { ViewProps } from "./parts";
-import { Roadmap } from "./Roadmap";
 import { Skills } from "./Skills";
-import { Upgrade } from "./Upgrade";
 
 export const viewComponents: Record<View, (props: ViewProps) => React.JSX.Element> = {
   home: Home,
@@ -18,8 +16,6 @@ export const viewComponents: Record<View, (props: ViewProps) => React.JSX.Elemen
   now: Now,
   about: About,
   contact: Contact,
-  upgrade: Upgrade,
-  roadmap: Roadmap,
   brief: Brief,
   skills: Skills,
 };

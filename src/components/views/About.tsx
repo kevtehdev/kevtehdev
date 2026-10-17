@@ -1,19 +1,15 @@
-import Link from "next/link";
 import { viewPath } from "@/lib/i18n";
-import { Body, Kicker, Label, Title } from "../disk/Label";
-import { type ViewProps, link } from "./parts";
+import { Actions, Body, Eyebrow, Page, SecondaryLink, Title, type ViewProps } from "./parts";
 
 export function About({ locale, dict }: ViewProps) {
   return (
-    <Label>
-      <Kicker>{dict.about.kicker}</Kicker>
+    <Page>
+      <Eyebrow>{dict.about.kicker}</Eyebrow>
       <Title>{dict.about.title}</Title>
       <Body>{dict.about.body}</Body>
-      <p className="mt-[var(--line)] type-body">
-        <Link href={viewPath(locale, "skills")} prefetch className={link}>
-          {dict.about.skills}
-        </Link>
-      </p>
-    </Label>
+      <Actions>
+        <SecondaryLink href={viewPath(locale, "skills")}>{dict.about.skills}</SecondaryLink>
+      </Actions>
+    </Page>
   );
 }
