@@ -1,9 +1,11 @@
 import { site } from "@/content/site";
+import { IntroScript } from "./IntroScript";
 
 /*
  * Runs before first paint, so a returning visitor never sees the intro flash.
  * Plays once per browser session, never with reduced motion, and leaves the
- * page untouched if storage is blocked. The CSS for each step is in globals.css.
+ * page untouched if storage is blocked. It only ever writes to <html>, which
+ * React leaves alone; the CSS for each step is in globals.css.
  */
 const script = `(() => {
   const root = document.documentElement;
@@ -20,7 +22,7 @@ const script = `(() => {
     const from = document.getElementById("intro-mark");
     const to = document.getElementById("site-mark");
     if (!intro || !from || !to) return void (root.dataset.intro = "done");
-    intro.dataset.state = "loading";
+    root.dataset.intro = "loading";
     setTimeout(() => {
       const a = from.getBoundingClientRect();
       const b = to.getBoundingClientRect();
@@ -46,7 +48,7 @@ const script = `(() => {
 export function Intro() {
   return (
     <>
-      <script dangerouslySetInnerHTML={{ __html: script }} />
+      <IntroScript code={script} />
       <div id="intro" className="intro" aria-hidden>
         <div>
           <span id="intro-mark" className="inline-block wordmark">

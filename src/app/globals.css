@@ -71,15 +71,14 @@
 /*
  * The intro: on the first page of a visit the wordmark sits centred over a
  * thin loading line, then moves into the header while the page fades in.
- * The inline script in Intro.tsx drives html[data-intro]: play → leaving → done.
+ * The inline script in Intro.tsx drives html[data-intro]: play → loading → leaving → done.
  * Without that script (or with reduced motion) none of this applies.
  */
 .intro {
   display: none;
 }
 
-html[data-intro="play"] .intro,
-html[data-intro="leaving"] .intro {
+html:is([data-intro="play"], [data-intro="loading"], [data-intro="leaving"]) .intro {
   position: fixed;
   inset: 0;
   z-index: 50;
@@ -89,7 +88,7 @@ html[data-intro="leaving"] .intro {
 }
 
 /* If the script ever stalls, the page still shows up. */
-html[data-intro="play"] .intro {
+html:is([data-intro="play"], [data-intro="loading"]) .intro {
   animation: intro-failsafe 0s 5s forwards;
 }
 
@@ -114,7 +113,7 @@ html[data-intro="play"] .intro {
   transform-origin: left;
 }
 
-.intro[data-state="loading"] .intro-bar span {
+html[data-intro="loading"] .intro-bar span {
   transform: scaleX(1);
   transition: transform 1400ms cubic-bezier(0.65, 0, 0.35, 1);
 }
@@ -130,12 +129,11 @@ html[data-intro="leaving"] .intro-bar {
   transition: opacity 200ms;
 }
 
-html[data-intro="play"] #site-mark,
-html[data-intro="leaving"] #site-mark {
+html:is([data-intro="play"], [data-intro="loading"], [data-intro="leaving"]) #site-mark {
   visibility: hidden;
 }
 
-html[data-intro="play"] [data-reveal] {
+html:is([data-intro="play"], [data-intro="loading"]) [data-reveal] {
   opacity: 0;
   translate: 0 8px;
 }

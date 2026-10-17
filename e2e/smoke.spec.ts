@@ -55,7 +55,7 @@ test.describe("intro", () => {
 
   test("plays once per visit, then hands the wordmark to the header", async ({ page }) => {
     await page.goto("/en");
-    await expect(page.locator("html")).toHaveAttribute("data-intro", "play");
+    await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
     await expect(page.locator("#intro")).toBeVisible();
     await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
     await expect(page.locator("#site-mark")).toBeVisible();
