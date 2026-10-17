@@ -2,7 +2,7 @@ export const en = {
   meta: {
     title: "Fullstack developer",
     description:
-      "Kevin builds fast websites for small companies, and the admin tools behind them. Next.js, TypeScript and Payload CMS, from Linköping, Sweden.",
+      "Kevin builds fast websites, online stores and the systems behind them, and sets up AI automation that stays safe. Next.js, TypeScript and Payload CMS, from Linköping, Sweden.",
   },
   skip: "Skip to content",
   nav: {
@@ -21,12 +21,45 @@ export const en = {
     sv: "Svenska",
   },
   home: {
-    title: "Fast websites, and the admin tools behind them.",
-    lead: "For small companies that want to publish on their own and keep their Google rankings. Built in Linköping with Next.js, TypeScript and Payload CMS.",
+    title: "Websites, online stores, and the systems that run your business.",
+    lead: "I help small and growing companies with what they sell and run on: sites that load instantly, stores that work on a phone, admin tools your team runs on its own, and AI automation you can trust. From Linköping, for clients anywhere.",
     cta: "Have a project?",
-    brief: "Read the Warde brief",
+    services: "See what I can help with",
+    proofHeading: "Proof, not promises",
+    proofBody:
+      "My latest launch, measured by Google’s own Lighthouse test on the live site. Every project I take on is built to the same standard.",
+    caseLink: "Read the case",
     available: "Available from",
     availableNow: "Available now",
+  },
+  services: {
+    heading: "What I can help with",
+    items: [
+      {
+        title: "Websites",
+        text: "Fast, accessible sites built to be found on Google, with forms and email that actually reach the inbox.",
+      },
+      {
+        title: "Online stores",
+        text: "E-commerce that loads fast on a phone: product pages, checkout and payments, with stock and orders kept in sync.",
+      },
+      {
+        title: "Admin and backend systems",
+        text: "An admin your team runs on its own, and custom systems built around how your business works: listings, bookings, orders, newsletters.",
+      },
+      {
+        title: "Safe AI automation",
+        text: "Hand the repetitive work to AI, with a person approving what matters, your data kept private and every step logged.",
+      },
+      {
+        title: "Moving and speeding up",
+        text: "Off WordPress or a rented system without losing your rankings, or make the site you already have faster and accessible to everyone.",
+      },
+      {
+        title: "Servers and infrastructure",
+        text: "Containers, Kubernetes and CI when a project needs servers of its own, with monitoring from the first day.",
+      },
+    ],
   },
   case: {
     kicker: "Latest case · Nice · 2026",
@@ -67,16 +100,6 @@ export const en = {
   skills: {
     kicker: "Skills",
     title: "What I can help with, and how I work.",
-    helpHeading: "What I can help with",
-    help: [
-      "New websites that load fast and are built to be found on Google",
-      "An admin your team runs on its own: pages, articles, listings, newsletters",
-      "Custom-made backend systems, built around how your business works",
-      "Containers and Kubernetes, when a project needs servers of its own",
-      "Moving off WordPress or a rented system without losing your rankings",
-      "Making an existing site faster and accessible to everyone",
-      "Forms, sign-ups and email that reach the inbox",
-    ],
     processHeading: "How I work",
     process: [
       { step: "Brief", text: "We write down what you need and how we’ll know it worked." },

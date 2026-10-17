@@ -1,6 +1,7 @@
 import { Fragment } from "react";
 import { pad2 } from "@/lib/format";
 import { viewPath } from "@/lib/i18n";
+import { Services } from "../Services";
 import { Actions, Eyebrow, Page, PrimaryLink, Section, Title, type ViewProps } from "./parts";
 
 /** What I offer, how a project runs, and the tools behind it. Opened from About. */
@@ -10,17 +11,10 @@ export function Skills({ locale, dict }: ViewProps) {
       <Eyebrow>{dict.skills.kicker}</Eyebrow>
       <Title>{dict.skills.title}</Title>
 
-      <Section heading={dict.skills.helpHeading}>
-        <ul className="flex max-w-[62ch] flex-col gap-1.5 text-[1.0625rem] leading-relaxed">
-          {dict.skills.help.map((item) => (
-            <li key={item} className="flex gap-3">
-              <span aria-hidden className="text-pass">
-                ✓
-              </span>
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
+      <Section heading={dict.services.heading}>
+        <div className="pt-3">
+          <Services services={dict.services} />
+        </div>
       </Section>
 
       <Section heading={dict.skills.processHeading}>

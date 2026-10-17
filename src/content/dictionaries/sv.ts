@@ -4,7 +4,7 @@ export const sv: Dictionary = {
   meta: {
     title: "Fullstackutvecklare",
     description:
-      "Kevin bygger snabba webbplatser åt små företag, och adminverktygen bakom dem. Next.js, TypeScript och Payload CMS, från Linköping.",
+      "Kevin bygger snabba webbplatser, webbutiker och systemen bakom dem, och sätter upp AI-automation som är säker. Next.js, TypeScript och Payload CMS, från Linköping.",
   },
   skip: "Hoppa till innehållet",
   nav: {
@@ -23,12 +23,45 @@ export const sv: Dictionary = {
     sv: "Svenska",
   },
   home: {
-    title: "Snabba sajter, och adminverktygen bakom dem.",
-    lead: "För små företag som vill publicera själva och behålla sina placeringar på Google. Byggt i Linköping med Next.js, TypeScript och Payload CMS.",
+    title: "Webbplatser, webbutiker och systemen som driver ert företag.",
+    lead: "Jag hjälper små och växande företag med det de säljer och driver verksamheten på: sajter som laddar direkt, butiker som fungerar i mobilen, adminverktyg som teamet sköter själva och AI-automation ni kan lita på. Från Linköping, för kunder var som helst.",
     cta: "Har du ett projekt?",
-    brief: "Läs briefen om Warde",
+    services: "Se vad jag kan hjälpa till med",
+    proofHeading: "Bevis, inte löften",
+    proofBody:
+      "Min senaste lansering, mätt med Googles eget Lighthouse-test på den riktiga sajten. Alla projekt jag tar mig an byggs med samma krav.",
+    caseLink: "Läs caset",
     available: "Ledig från",
     availableNow: "Ledig nu",
+  },
+  services: {
+    heading: "Det här kan jag hjälpa till med",
+    items: [
+      {
+        title: "Webbplatser",
+        text: "Snabba, tillgängliga sajter byggda för att hittas på Google, med formulär och mejl som faktiskt når inkorgen.",
+      },
+      {
+        title: "Webbutiker",
+        text: "E-handel som laddar snabbt i mobilen: produktsidor, kassa och betalning, med lager och ordrar i synk.",
+      },
+      {
+        title: "Admin och backendsystem",
+        text: "Ett admin som teamet sköter själva, och skräddarsydda system byggda efter hur ert företag fungerar: objekt, bokningar, ordrar, nyhetsbrev.",
+      },
+      {
+        title: "Säker AI-automation",
+        text: "Låt AI ta det repetitiva arbetet, med en människa som godkänner det viktiga, er data skyddad och varje steg loggat.",
+      },
+      {
+        title: "Flytt och snabbare sajt",
+        text: "Från WordPress eller ett hyrt system utan att tappa placeringar, eller gör den sajt ni redan har snabbare och tillgänglig för alla.",
+      },
+      {
+        title: "Servrar och infrastruktur",
+        text: "Containrar, Kubernetes och CI när ett projekt behöver egna servrar, med övervakning från första dagen.",
+      },
+    ],
   },
   case: {
     kicker: "Senaste case · Nice · 2026",
@@ -68,16 +101,6 @@ export const sv: Dictionary = {
   skills: {
     kicker: "Kunskap",
     title: "Vad jag kan hjälpa till med, och hur jag jobbar.",
-    helpHeading: "Det här kan jag hjälpa till med",
-    help: [
-      "Nya webbplatser som laddar snabbt och är byggda för att hittas på Google",
-      "Ett admin som ert team sköter själva: sidor, artiklar, objekt, nyhetsbrev",
-      "Skräddarsydda backendsystem, byggda efter hur ert företag fungerar",
-      "Containrar och Kubernetes, när ett projekt behöver egna servrar",
-      "Flytt från WordPress eller ett hyrt system utan att tappa placeringar",
-      "Snabbare och mer tillgänglig sajt för den ni redan har",
-      "Formulär, anmälningar och mejl som når inkorgen",
-    ],
     processHeading: "Så jobbar jag",
     process: [
       { step: "Brief", text: "Vi skriver ner vad ni behöver och hur vi vet att det fungerade." },
