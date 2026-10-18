@@ -18,9 +18,20 @@ const script = `(() => {
     const intro = document.getElementById("intro");
     const from = document.getElementById("intro-mark");
     const to = document.getElementById("site-mark");
-    if (!intro || !from || !to) return void (root.dataset.intro = "done");
+    if (!intro || !from) return void (root.dataset.intro = "done");
     root.dataset.intro = "loading";
     setTimeout(() => {
+      // Home has no wordmark in its header: the big one on the page takes over
+      // instead, so the loading text simply fades as its letters rise.
+      if (!to) {
+        root.dataset.intro = "leaving";
+        from.animate([{ opacity: 1 }, { opacity: 0 }], { duration: still ? 0 : 450, easing: "ease-out", fill: "forwards" })
+          .onfinish = () => {
+          root.dataset.intro = "done";
+          setTimeout(() => delete root.dataset.intro, 1800);
+        };
+        return;
+      }
       const a = from.getBoundingClientRect();
       const b = to.getBoundingClientRect();
       root.dataset.intro = "leaving";

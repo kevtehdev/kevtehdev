@@ -20,7 +20,8 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 /**
- * The page's one big statement. Home sets it a size larger, and its words rise
+ * The page's one big statement. On Home it is set small, since the giant
+ * wordmark carries the page, and its words rise
  * into place one after another (see .word in globals.css). The full sentence
  * stays one accessible name; the per-word spans are only for the eye.
  */
@@ -32,7 +33,7 @@ export function Title({ children, size = "page" }: { children: string; size?: "h
       className={[
         "max-w-[20ch] font-display font-semibold tracking-[-0.025em] text-balance",
         size === "home"
-          ? "text-[clamp(2rem,5.4vw,3.625rem)] leading-[1.05]"
+          ? "text-[clamp(1.375rem,2.4vw,1.625rem)] leading-tight"
           : "text-[clamp(1.875rem,4.2vw,2.75rem)] leading-[1.08]",
       ].join(" ")}
     >
@@ -70,14 +71,15 @@ export function Section({ heading, children }: { heading: string; children: Reac
 
 /**
  * A section's name as a small label on a hairline, with how many things it
- * holds at the far end: SERVICES ──────── 06.
+ * holds (or a short note) at the far end: SERVICES ──────── 06.
  */
-export function SectionLabel({ children, count }: { children: string; count?: number }) {
+export function SectionLabel({ children, count, aside }: { children: string; count?: number; aside?: string }) {
   return (
     <div className="flex items-center gap-4">
       <h2 className="shrink-0 eyebrow">{children}</h2>
       <span aria-hidden className="h-px flex-1 bg-rule" />
       {count !== undefined && <span className="eyebrow tabular-nums">{pad2(count)}</span>}
+      {aside && <span className="eyebrow">{aside}</span>}
     </div>
   );
 }

@@ -180,6 +180,41 @@ html:is([data-intro="play"], [data-intro="loading"]) .word > span {
   animation-play-state: paused;
 }
 
+/*
+ * The domain across the full width of Home (GiantWordmark.tsx). Sized to the
+ * container: twelve monospace letters at 0.6em, less 0.04em tracking each,
+ * make 6.72em, so 14.8cqw fills the width.
+ */
+.giant {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-weight: 300;
+  font-size: 14.8cqw;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+/* Each letter rises out of its own clipped box, in turn, as the intro hands over. */
+.giant > span {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.giant > span > span {
+  display: inline-block;
+  font-variation-settings: "wght" 300;
+  transition: font-variation-settings 160ms linear;
+  animation: word-rise 1000ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  animation-delay: calc(var(--i) * 40ms + 100ms);
+}
+
+html:is([data-intro="play"], [data-intro="loading"]) .giant > span > span {
+  animation-play-state: paused;
+}
+
 /* Lighthouse-style score rings fill once the page is up. */
 @keyframes ring-fill {
   from {

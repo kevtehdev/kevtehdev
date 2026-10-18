@@ -24,13 +24,23 @@ export const sv: Dictionary = {
   },
   home: {
     title: "Webbplatser, webbutiker och systemen som driver ert företag.",
-    lead: "Jag hjälper små och växande företag med det de säljer och driver verksamheten på: sajter som laddar direkt, butiker som fungerar i mobilen, adminverktyg som teamet sköter själva och AI-automation ni kan lita på. Från Linköping, för kunder var som helst.",
+    lead: "Utvecklare i Linköping som studerar C och C++ på Chas Academy. Jag bygger åt små och växande företag, från första skissen till lansering.",
     cta: "Har du ett projekt?",
+    status: {
+      label: "Status",
+      localTime: "Lokal tid",
+      latest: "Senaste lansering",
+      lighthouse: "Lighthouse",
+    },
     localTime: "Lokal tid i Linköping",
-    proofHeading: "Bevis",
-    proofBody:
-      "Min senaste lansering, mätt med Googles eget Lighthouse-test på den riktiga sajten. Alla projekt jag tar mig an byggs med samma krav.",
-    caseLink: "Läs caset",
+    logLabel: "Logg",
+    logOrder: "Senaste först",
+    now: "nu",
+    log: [
+      { date: "", text: "Bygger Örhall Property Groups sajt" },
+      { date: "okt 2026", text: "Publicerade kevdev.codes" },
+      { date: "2026", text: "Publicerade Warde Propertys sajt", href: "https://www.wardeproperty.com" },
+    ],
     available: "Ledig från",
     availableNow: "Ledig nu",
   },

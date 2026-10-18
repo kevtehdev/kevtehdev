@@ -22,10 +22,15 @@ export function Header({ locale, nav, language }: HeaderProps) {
   return (
     <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
       <Link href={viewPath(locale, "home")} className="flex min-h-11 items-center">
-        {/* The same element as the intro's wordmark, so it lands here without a jump. */}
-        <span id="site-mark" className="inline-block wordmark">
-          {site.domain}
-        </span>
+        {view === "home" ? (
+          // Home sets the domain huge on the page, so the header carries the name.
+          <span className="font-mono text-xs font-medium tracking-[0.08em] uppercase">{site.name}</span>
+        ) : (
+          // The same element as the intro's wordmark, so it lands here without a jump.
+          <span id="site-mark" className="inline-block wordmark">
+            {site.domain}
+          </span>
+        )}
       </Link>
       <div data-reveal className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
         <nav aria-label={nav.label}>
