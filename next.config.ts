@@ -9,14 +9,6 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [{ source: "/:lang(en|sv)/:view(upgrade|roadmap)", destination: "/:lang", permanent: true }];
   },
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
-  },
 };
 
 export default nextConfig;
