@@ -48,28 +48,6 @@
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
-
-  /* A terminal cursor after the domain, blinking like a prompt waiting for input. */
-  &::after {
-    content: "";
-    display: inline-block;
-    width: 0.6em;
-    height: 1.05em;
-    margin-left: 0.15em;
-    vertical-align: -0.18em;
-    background: var(--pass);
-    animation: blink 1.1s steps(1, end) infinite;
-
-    @media (prefers-reduced-motion: reduce) {
-      animation: none !important;
-    }
-  }
-}
-
-@keyframes blink {
-  50% {
-    opacity: 0;
-  }
 }
 
 /* Small uppercase labels: eyebrows, captions, the footer. */
@@ -153,11 +131,6 @@ html[data-intro="leaving"] .intro {
 /* Promoted to its own layer, so the move runs on the compositor. */
 #intro-mark {
   will-change: transform;
-}
-
-/* The cursor holds still in flight and starts blinking, from "on", once it lands. */
-html:is([data-intro="play"], [data-intro="loading"], [data-intro="leaving"]) .wordmark::after {
-  animation: none;
 }
 
 html[data-intro="leaving"] .intro-bar {
@@ -269,7 +242,7 @@ html:is([data-intro="play"], [data-intro="loading"]) .ring-arc {
 /*
  * Reduced motion. Kept outside @layer base on purpose: an !important inside a
  * layer beats any !important outside it, which would stop the intro's failsafe
- * delay and the still cursor from opting out.
+ * delay from opting out.
  */
 @media (prefers-reduced-motion: reduce) {
   *,

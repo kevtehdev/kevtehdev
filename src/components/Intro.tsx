@@ -49,7 +49,7 @@ export function Intro() {
       <IntroScript code={script} />
       <div id="intro" className="intro" aria-hidden>
         <div>
-          <span id="intro-mark" className="wordmark inline-block">
+          <span id="intro-mark" className="inline-block wordmark">
             {site.domain}
           </span>
           <div className="intro-bar">
