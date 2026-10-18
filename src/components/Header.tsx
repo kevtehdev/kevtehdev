@@ -27,15 +27,10 @@ export function Header({ locale, nav, language, timeLabel }: HeaderProps) {
     // under a hairline. Wider screens: one row, menu and language to the right.
     <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 pt-2 sm:flex sm:gap-x-8 sm:py-5">
       <Link href={viewPath(locale, "home")} className="flex min-h-11 items-center">
-        {view === "home" ? (
-          // Home sets the domain huge on the page, so the header carries the name.
-          <span className="font-mono text-xs font-medium tracking-[0.08em] uppercase">{site.name}</span>
-        ) : (
-          // The same element as the intro's wordmark, so it lands here without a jump.
-          <span id="site-mark" className="inline-block wordmark">
-            {site.domain}
-          </span>
-        )}
+        {/* The same element as the intro's wordmark, so it lands here without a jump. */}
+        <span id="site-mark" className="inline-block wordmark">
+          {site.domain}
+        </span>
       </Link>
       <nav
         data-reveal

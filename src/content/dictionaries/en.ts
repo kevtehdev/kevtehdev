@@ -25,6 +25,14 @@ export const en = {
     lead: "A developer in Linköping, studying C and C++ at Chas Academy. I build for small and growing companies, from the first sketch to launch.",
     cta: "Have a project?",
     localTime: "Local time in Linköping",
+    logLabel: "Changelog",
+    logOrder: "Latest first",
+    now: "now",
+    log: [
+      { date: "", text: "Building the Örhall Property Group site" },
+      { date: "Oct 2026", text: "Published kevdev.codes" },
+      { date: "2026", text: "Published the Warde Property site", href: "https://www.wardeproperty.com" },
+    ],
   },
   services: {
     label: "Services",

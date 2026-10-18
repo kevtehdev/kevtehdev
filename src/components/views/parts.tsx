@@ -20,8 +20,7 @@ export function Eyebrow({ children }: { children: ReactNode }) {
 }
 
 /**
- * The page's one big statement. On Home it is set small, since the giant
- * wordmark carries the page, and its words rise
+ * The page's one big statement. Home sets it a size larger, and its words rise
  * into place one after another (see .word in globals.css). The full sentence
  * stays one accessible name; the per-word spans are only for the eye.
  */
@@ -33,7 +32,7 @@ export function Title({ children, size = "page" }: { children: string; size?: "h
       className={[
         "max-w-[20ch] font-display font-semibold tracking-[-0.025em] text-balance",
         size === "home"
-          ? "text-[clamp(1.375rem,2.4vw,1.625rem)] leading-tight"
+          ? "text-[clamp(2rem,5.4vw,3.625rem)] leading-[1.05]"
           : "text-[clamp(1.875rem,4.2vw,2.75rem)] leading-[1.08]",
       ].join(" ")}
     >

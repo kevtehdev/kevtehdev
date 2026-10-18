@@ -21,8 +21,7 @@ const script = `(() => {
     if (!intro || !from) return void (root.dataset.intro = "done");
     root.dataset.intro = "loading";
     setTimeout(() => {
-      // Home has no wordmark in its header: the big one on the page takes over
-      // instead, so the loading text simply fades as its letters rise.
+      // No header wordmark to land on: the loading text simply fades out.
       if (!to) {
         root.dataset.intro = "leaving";
         from.animate([{ opacity: 1 }, { opacity: 0 }], { duration: still ? 0 : 450, easing: "ease-out", fill: "forwards" })

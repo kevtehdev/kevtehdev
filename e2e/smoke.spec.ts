@@ -61,20 +61,14 @@ test.describe("navigation", () => {
 });
 
 base.describe("intro", () => {
-  base("on Home, hands over to the big wordmark on the page", async ({ page }) => {
-    await page.goto("/en");
-    await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
-    await expect(page.locator("#intro")).toBeVisible();
-    await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
-    await expect(page.locator(".giant")).toBeVisible();
-  });
-
-  base("on other pages, hands the wordmark to the header", async ({ page }) => {
-    await page.goto("/en/case");
-    await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
-    await expect(page.locator("#intro")).toBeVisible();
-    await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
-    await expect(page.locator("#site-mark")).toBeVisible();
+  base("plays on every page load, then hands the wordmark to the header", async ({ page }) => {
+    for (const path of ["/en", "/en/case"]) {
+      await page.goto(path);
+      await expect(page.locator("html")).toHaveAttribute("data-intro", /play|loading/);
+      await expect(page.locator("#intro")).toBeVisible();
+      await expect(page.locator("#intro")).toBeHidden({ timeout: 5000 });
+      await expect(page.locator("#site-mark")).toBeVisible();
+    }
   });
 
   base("still shows with reduced motion, without moving", async ({ page }) => {
