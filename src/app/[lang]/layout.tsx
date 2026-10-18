@@ -47,6 +47,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
+  const deploy = process.env.VERCEL_GIT_COMMIT_SHA;
 
   return (
     // The intro script sets data-intro on <html> before React hydrates.
@@ -80,9 +81,17 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
                   </a>
                 ))}
               </span>
-              <span>
-                {site.location} ·{" "}
-                {site.availableFrom ? `${dict.home.available} ${site.availableFrom[lang]}` : dict.home.availableNow}
+              <span className="flex flex-wrap gap-x-2">
+                {site.location}
+                {deploy && (
+                  <>
+                    <span aria-hidden>·</span>
+                    {/* The exact commit this page was built from. Set by Vercel at build time. */}
+                    <a href={`${site.repo}/commit/${deploy}`} className="hover:text-fg" rel="noopener">
+                      deploy <span className="normal-case">{deploy.slice(0, 7)}</span>
+                    </a>
+                  </>
+                )}
               </span>
             </footer>
           </div>

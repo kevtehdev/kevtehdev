@@ -26,8 +26,8 @@ export const sv: Dictionary = {
     title: "Webbplatser, webbutiker och systemen som driver ert företag.",
     lead: "Jag hjälper små och växande företag med det de säljer och driver verksamheten på: sajter som laddar direkt, butiker som fungerar i mobilen, adminverktyg som teamet sköter själva och AI-automation ni kan lita på. Från Linköping, för kunder var som helst.",
     cta: "Har du ett projekt?",
-    services: "Se vad jag kan hjälpa till med",
-    proofHeading: "Bevis, inte löften",
+    localTime: "Lokal tid i Linköping",
+    proofHeading: "Bevis",
     proofBody:
       "Min senaste lansering, mätt med Googles eget Lighthouse-test på den riktiga sajten. Alla projekt jag tar mig an byggs med samma krav.",
     caseLink: "Läs caset",
@@ -35,29 +35,36 @@ export const sv: Dictionary = {
     availableNow: "Ledig nu",
   },
   services: {
+    label: "Tjänster",
     heading: "Det här kan jag hjälpa till med",
     items: [
       {
+        tag: "/web",
         title: "Webbplatser",
         text: "Snabba, tillgängliga sajter byggda för att hittas på Google, med formulär och mejl som faktiskt når inkorgen.",
       },
       {
+        tag: "/commerce",
         title: "Webbutiker",
         text: "E-handel som laddar snabbt i mobilen: produktsidor, kassa och betalning, med lager och ordrar i synk.",
       },
       {
+        tag: "/systems",
         title: "Admin och backendsystem",
         text: "Ett admin som teamet sköter själva, och skräddarsydda system byggda efter hur ert företag fungerar: objekt, bokningar, ordrar, nyhetsbrev.",
       },
       {
+        tag: "/ai",
         title: "Säker AI-automation",
         text: "Låt AI ta det repetitiva arbetet, med en människa som godkänner det viktiga, er data skyddad och varje steg loggat.",
       },
       {
+        tag: "/migrate",
         title: "Flytt och snabbare sajt",
         text: "Från WordPress eller ett hyrt system utan att tappa placeringar, eller gör den sajt ni redan har snabbare och tillgänglig för alla.",
       },
       {
+        tag: "/infra",
         title: "Servrar och infrastruktur",
         text: "Containrar, Kubernetes och CI när ett projekt behöver egna servrar, med övervakning från första dagen.",
       },
@@ -118,7 +125,7 @@ export const sv: Dictionary = {
       { group: "Drift", list: "Sentry · Resend" },
       { group: "System", list: "C · C++ · Rust · sockets · ESP32" },
     ],
-    cta: "Har du ett projekt? →",
+    cta: "Har du ett projekt?",
   },
   brief: {
     kicker: "Case · Warde Property · Nice · 2026",

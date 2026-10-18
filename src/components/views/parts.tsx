@@ -1,6 +1,7 @@
 import Link from "next/link";
-import type { ReactNode } from "react";
+import { type CSSProperties, Fragment, type ReactNode } from "react";
 import type { Dictionary } from "@/content/dictionaries/en";
+import { pad2 } from "@/lib/format";
 import type { Locale } from "@/lib/i18n";
 
 export type ViewProps = { locale: Locale; dict: Dictionary };
@@ -18,10 +19,16 @@ export function Eyebrow({ children }: { children: ReactNode }) {
   return <p className="eyebrow">{children}</p>;
 }
 
-/** The page's one big statement. Home sets it a size larger. */
-export function Title({ children, size = "page" }: { children: ReactNode; size?: "home" | "page" }) {
+/**
+ * The page's one big statement. Home sets it a size larger, and its words rise
+ * into place one after another (see .word in globals.css). The full sentence
+ * stays one accessible name; the per-word spans are only for the eye.
+ */
+export function Title({ children, size = "page" }: { children: string; size?: "home" | "page" }) {
+  const words = children.split(" ");
   return (
     <h1
+      aria-label={size === "home" ? children : undefined}
       className={[
         "max-w-[20ch] font-display font-semibold tracking-[-0.025em] text-balance",
         size === "home"
@@ -29,7 +36,16 @@ export function Title({ children, size = "page" }: { children: ReactNode; size?:
           : "text-[clamp(1.875rem,4.2vw,2.75rem)] leading-[1.08]",
       ].join(" ")}
     >
-      {children}
+      {size === "home"
+        ? words.map((word, i) => (
+            <Fragment key={i}>
+              {i > 0 && " "}
+              <span aria-hidden className="word">
+                <span style={{ "--i": i } as CSSProperties}>{word}</span>
+              </span>
+            </Fragment>
+          ))
+        : children}
     </h1>
   );
 }
@@ -52,17 +68,34 @@ export function Section({ heading, children }: { heading: string; children: Reac
   );
 }
 
+/**
+ * A section's name as a small label on a hairline, with how many things it
+ * holds at the far end: SERVICES ──────── 06.
+ */
+export function SectionLabel({ children, count }: { children: string; count?: number }) {
+  return (
+    <div className="flex items-center gap-4">
+      <h2 className="shrink-0 eyebrow">{children}</h2>
+      <span aria-hidden className="h-px flex-1 bg-rule" />
+      {count !== undefined && <span className="eyebrow tabular-nums">{pad2(count)}</span>}
+    </div>
+  );
+}
+
 export function Actions({ children }: { children: ReactNode }) {
   return <div className="flex flex-wrap items-center gap-3 pt-2">{children}</div>;
 }
 
 const button = "inline-flex min-h-11 items-center rounded-full border border-fg px-[1.125rem] text-[0.9375rem]";
 
-/** The solid button a page ends on, e.g. "Have a project?". */
+/** The solid button a page ends on, e.g. "Have a project?", with an arrow that nudges forward on hover. */
 export function PrimaryLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} prefetch className={`${button} bg-fg text-bg hover:opacity-85`}>
+    <Link href={href} prefetch className={`group gap-2 ${button} bg-fg text-bg transition-opacity hover:opacity-90`}>
       {children}
+      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+        →
+      </span>
     </Link>
   );
 }

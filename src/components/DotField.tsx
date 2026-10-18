@@ -46,7 +46,7 @@ void main() {
   float radius = (0.7 + 1.5 * wave + 1.8 * near) * uDpr;
   float edge = 0.8 * uDpr;
   float dot = 1.0 - smoothstep(radius - edge, radius + edge, distance(gl_FragCoord.xy, center));
-  float alpha = dot * (0.16 + 0.42 * wave + 0.75 * near);
+  float alpha = dot * (0.12 + 0.34 * wave + 0.7 * near);
 
   vec3 color = mix(uInk, uAccent, near);
   gl_FragColor = vec4(color * alpha, alpha);
@@ -197,7 +197,7 @@ export function DotField() {
     <div
       aria-hidden
       data-reveal
-      className="pointer-events-none absolute inset-x-0 top-24 h-[min(90svh,50rem)] [mask-image:radial-gradient(ellipse_80%_45%_at_85%_20%,black,transparent_72%)] opacity-70 sm:[mask-image:radial-gradient(ellipse_55%_70%_at_80%_30%,black_20%,transparent_75%)] sm:opacity-100"
+      className="pointer-events-none absolute inset-x-0 top-24 h-[min(90svh,50rem)] [mask-image:radial-gradient(ellipse_80%_45%_at_85%_20%,black,transparent_72%)] opacity-60 sm:[mask-image:radial-gradient(ellipse_55%_70%_at_80%_30%,black_20%,transparent_75%)] sm:opacity-80"
     >
       <canvas ref={ref} className="size-full" />
     </div>

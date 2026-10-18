@@ -24,8 +24,8 @@ export const en = {
     title: "Websites, online stores, and the systems that run your business.",
     lead: "I help small and growing companies with what they sell and run on: sites that load instantly, stores that work on a phone, admin tools your team runs on its own, and AI automation you can trust. From Linköping, for clients anywhere.",
     cta: "Have a project?",
-    services: "See what I can help with",
-    proofHeading: "Proof, not promises",
+    localTime: "Local time in Linköping",
+    proofHeading: "Proof",
     proofBody:
       "My latest launch, measured by Google’s own Lighthouse test on the live site. Every project I take on is built to the same standard.",
     caseLink: "Read the case",
@@ -33,29 +33,36 @@ export const en = {
     availableNow: "Available now",
   },
   services: {
+    label: "Services",
     heading: "What I can help with",
     items: [
       {
+        tag: "/web",
         title: "Websites",
         text: "Fast, accessible sites built to be found on Google, with forms and email that actually reach the inbox.",
       },
       {
+        tag: "/commerce",
         title: "Online stores",
         text: "E-commerce that loads fast on a phone: product pages, checkout and payments, with stock and orders kept in sync.",
       },
       {
+        tag: "/systems",
         title: "Admin and backend systems",
         text: "An admin your team runs on its own, and custom systems built around how your business works: listings, bookings, orders, newsletters.",
       },
       {
+        tag: "/ai",
         title: "Safe AI automation",
         text: "Hand the repetitive work to AI, with a person approving what matters, your data kept private and every step logged.",
       },
       {
+        tag: "/migrate",
         title: "Moving and speeding up",
         text: "Off WordPress or a rented system without losing your rankings, or make the site you already have faster and accessible to everyone.",
       },
       {
+        tag: "/infra",
         title: "Servers and infrastructure",
         text: "Containers, Kubernetes and CI when a project needs servers of its own, with monitoring from the first day.",
       },
@@ -117,7 +124,7 @@ export const en = {
       { group: "Operations", list: "Sentry · Resend" },
       { group: "Systems", list: "C · C++ · Rust · sockets · ESP32" },
     ],
-    cta: "Have a project? →",
+    cta: "Have a project?",
   },
   brief: {
     kicker: "Case study · Warde Property · Nice · 2026",

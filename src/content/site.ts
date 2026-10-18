@@ -33,5 +33,7 @@ export const site = {
     // Google's PageSpeed Insights runs the same Lighthouse test on the live site.
     pagespeed: "https://pagespeed.web.dev/analysis?url=https%3A%2F%2Fwww.wardeproperty.com%2F",
   },
+  // The code, linked from the deploy hash in the footer.
+  repo: "https://github.com/kevtehdev/kevtehdev",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://kevdev.codes",
 } as const;
