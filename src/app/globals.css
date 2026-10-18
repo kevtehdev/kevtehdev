@@ -1,27 +1,27 @@
 @import "tailwindcss";
 
 /*
- * Tokens. One quiet page: cool off-white (near-black in dark mode), ink text,
- * and Lighthouse's pass green as the only accent, because the scores are the
- * point. Colours switch with the visitor's system theme.
+ * Tokens. Monochrome: near-white paper and near-black ink (swapped in dark
+ * mode), with two greys for secondary text and a hairline for the rules.
+ * Colours follow the visitor's system theme.
  */
 :root {
-  --bg: #f5f6f8;
-  --fg: #15181d;
-  --muted: #5d6471;
-  --rule: #dde0e6;
-  --pass: #1d7a3c;
-  --panel: #ffffff;
+  --bg: #fafafa;
+  --fg: #111214;
+  --muted: #63676e;
+  --faint: #6e7278;
+  --rule: #e5e6e8;
+  --hover: #f0f1f2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #101216;
-    --fg: #e9ebef;
-    --muted: #9aa1af;
-    --rule: #262a32;
-    --pass: #5cc47e;
-    --panel: #181b21;
+    --bg: #0c0d0e;
+    --fg: #ececed;
+    --muted: #92969d;
+    --faint: #7b7f86;
+    --rule: #1f2123;
+    --hover: #161719;
     color-scheme: dark;
   }
 }
@@ -30,12 +30,11 @@
   --color-bg: var(--bg);
   --color-fg: var(--fg);
   --color-muted: var(--muted);
+  --color-faint: var(--faint);
   --color-rule: var(--rule);
-  --color-pass: var(--pass);
-  --color-panel: var(--panel);
+  --color-hover: var(--hover);
 
-  --font-display: var(--font-familjen), var(--font-plex-sans), system-ui, sans-serif;
-  --font-sans: var(--font-plex-sans), system-ui, sans-serif;
+  --font-sans: var(--font-geist), system-ui, sans-serif;
   --font-mono: var(--font-jetbrains), ui-monospace, monospace;
 }
 
@@ -43,30 +42,43 @@
 @utility wordmark {
   font-family: var(--font-mono);
   font-weight: 700;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   line-height: 1.25;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
-/* Small uppercase labels: eyebrows, captions, the footer. */
-@utility eyebrow {
+/* The small mono labels: each row's name, dates, captions, the footer. */
+@utility label {
   font-family: var(--font-mono);
   font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
+  line-height: 1.9;
+  color: var(--faint);
 }
 
+/* A link in running text: a hairline underneath that darkens on hover. */
 @utility link {
-  text-decoration-line: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  border-bottom: 1px solid var(--rule);
+  transition: border-color 200ms;
   &:hover {
-    text-decoration-color: currentColor;
+    border-color: currentColor;
   }
+}
+
+/* Things that open in place (Fold.tsx): the height animates through grid rows 0fr → 1fr. */
+.fold {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 450ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.fold > div {
+  overflow: hidden;
+}
+
+.fold[data-open="true"] {
+  grid-template-rows: 1fr;
 }
 
 /*
@@ -144,57 +156,15 @@ html:is([data-intro="play"], [data-intro="loading"], [data-intro="leaving"]) #si
 
 html:is([data-intro="play"], [data-intro="loading"]) [data-reveal] {
   opacity: 0;
-  translate: 0 8px;
+  translate: 0 6px;
 }
 
-/* The page fades up just after the wordmark sets off. */
+/* The rows settle one after another, just after the wordmark sets off (--n is each row's place). */
 html[data-intro="leaving"] [data-reveal] {
   transition:
-    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) 250ms,
-    translate 700ms cubic-bezier(0.22, 1, 0.36, 1) 250ms;
-}
-
-/* Home's headline: each word rises out of its own clipped line box, in turn. */
-.word {
-  display: inline-block;
-  overflow: hidden;
-  /* Room for descenders inside the clip, taken back so lines don't spread. */
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
-  vertical-align: top;
-}
-
-.word > span {
-  display: inline-block;
-  animation: word-rise 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-  animation-delay: calc(var(--i) * 45ms + 200ms);
-}
-
-@keyframes word-rise {
-  from {
-    transform: translateY(110%);
-  }
-}
-
-html:is([data-intro="play"], [data-intro="loading"]) .word > span {
-  animation-play-state: paused;
-}
-
-/* Lighthouse-style score rings fill once the page is up. */
-@keyframes ring-fill {
-  from {
-    stroke-dashoffset: 125.66;
-  }
-}
-
-.ring-arc {
-  stroke-dasharray: 125.66;
-  animation: ring-fill 1100ms cubic-bezier(0.2, 0.7, 0.2, 1) 500ms backwards;
-}
-
-/* Held at empty until the page is revealed, then filled. */
-html:is([data-intro="play"], [data-intro="loading"]) .ring-arc {
-  animation-play-state: paused;
+    opacity 700ms cubic-bezier(0.22, 1, 0.36, 1),
+    translate 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: calc(var(--n, 0) * 60ms + 150ms);
 }
 
 @layer base {
@@ -208,10 +178,18 @@ html:is([data-intro="play"], [data-intro="loading"]) .ring-arc {
     color: var(--bg);
   }
 
+  html {
+    hanging-punctuation: first last;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   :focus-visible {
-    outline: 2px solid var(--fg);
+    outline: 1.5px solid var(--fg);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 3px;
   }
 }
 

@@ -4,61 +4,35 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { site } from "@/content/site";
-import { type Locale, locales, navViews, parentView, viewPath, views } from "@/lib/i18n";
+import { type Locale, locales, viewPath } from "@/lib/i18n";
 import { LocalTime } from "./LocalTime";
 
 type HeaderProps = {
   locale: Locale;
-  nav: Dictionary["nav"];
   language: Dictionary["language"];
   /** Tooltip for the clock, e.g. "Local time in Linköping". */
   timeLabel: string;
 };
 
-/** The wordmark home, the menu, my local time, and the language switch, which keeps the current page. */
-export function Header({ locale, nav, language, timeLabel }: HeaderProps) {
-  const pathname = usePathname();
-  const view = views.find((v) => pathname === viewPath(locale, v));
-  const current = view && (parentView[view] ?? view);
-  const rest = pathname.replace(/^\/[^/]+/, "");
+/** The wordmark home, my local time, and the language switch, which keeps the current page. */
+export function Header({ locale, language, timeLabel }: HeaderProps) {
+  const rest = usePathname().replace(/^\/[^/]+/, "");
 
   return (
-    // Phones: name and language on one row, the menu spread across a second row
-    // under a hairline. Wider screens: one row, menu and language to the right.
-    <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 pt-2 sm:flex sm:gap-x-8 sm:py-5">
+    <header className="flex items-center justify-between gap-4 py-5 sm:py-6">
       <Link href={viewPath(locale, "home")} className="flex min-h-11 items-center">
         {/* The same element as the intro's wordmark, so it lands here without a jump. */}
         <span id="site-mark" className="inline-block wordmark">
           {site.domain}
         </span>
       </Link>
-      <nav
-        data-reveal
-        aria-label={nav.label}
-        className="col-span-2 row-start-2 border-t border-rule text-sm sm:ml-auto sm:border-0"
-      >
-        <ul className="flex justify-between sm:justify-start sm:gap-x-5">
-          {navViews.map((v) => (
-            <li key={v}>
-              <Link
-                href={viewPath(locale, v)}
-                prefetch
-                aria-current={v === current ? "page" : undefined}
-                className="flex min-h-11 items-center text-muted hover:text-fg aria-[current=page]:text-fg aria-[current=page]:underline aria-[current=page]:decoration-1 aria-[current=page]:underline-offset-[0.4em]"
-              >
-                {nav[v]}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
-      <div data-reveal className="col-start-2 row-start-1 -mr-2.5 flex items-center gap-3 sm:mr-0">
-        <span className="min-w-[5ch] text-right font-mono text-xs text-muted">
+      <div data-reveal className="-mr-2.5 flex items-center gap-3 font-mono text-xs">
+        <span className="min-w-[5ch] text-right text-muted">
           <LocalTime locale={locale} label={timeLabel} />
         </span>
         <span aria-hidden className="h-3 w-px bg-rule" />
         <nav aria-label={language.label}>
-          <ul className="flex gap-1 font-mono text-xs tracking-[0.08em] uppercase">
+          <ul className="flex">
             {locales.map((target) => (
               <li key={target}>
                 <Link
@@ -67,7 +41,7 @@ export function Header({ locale, nav, language, timeLabel }: HeaderProps) {
                   lang={target}
                   title={language[target]}
                   aria-current={target === locale ? "true" : undefined}
-                  className="flex min-h-11 min-w-9 items-center justify-center text-muted hover:text-fg aria-[current=true]:text-fg"
+                  className="flex min-h-11 min-w-9 items-center justify-center text-faint uppercase hover:text-fg aria-[current=true]:text-fg"
                 >
                   {target}
                 </Link>

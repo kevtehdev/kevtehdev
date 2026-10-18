@@ -1,114 +1,108 @@
 import Link from "next/link";
-import { type CSSProperties, Fragment, type ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import type { Dictionary } from "@/content/dictionaries/en";
-import { pad2 } from "@/lib/format";
 import type { Locale } from "@/lib/i18n";
 
 export type ViewProps = { locale: Locale; dict: Dictionary };
 
-/** Every view is one column under the header, with its parts revealed together after the intro. */
+/** A page is a stack of rows; see Row. */
 export function Page({ children }: { children: ReactNode }) {
-  return (
-    <div data-reveal className="flex flex-col gap-7 pt-10 pb-16 sm:pt-[clamp(2rem,8vh,6.5rem)]">
-      {children}
-    </div>
-  );
-}
-
-export function Eyebrow({ children }: { children: ReactNode }) {
-  return <p className="eyebrow">{children}</p>;
+  return <div className="pb-16">{children}</div>;
 }
 
 /**
- * The page's one big statement. Home sets it a size larger, and its words rise
- * into place one after another (see .word in globals.css). The full sentence
- * stays one accessible name; the per-word spans are only for the eye.
+ * One section of a page: a small mono label on the left, the content on the
+ * right, a hairline between rows. On phones the label sits above. Rows settle
+ * in turn after the intro; `n` is this row's place in that order. The label is
+ * the row's heading, except in the row that holds the page's h1.
  */
-export function Title({ children, size = "page" }: { children: string; size?: "home" | "page" }) {
-  const words = children.split(" ");
+export function Row({
+  label,
+  n = 0,
+  id,
+  heading = true,
+  children,
+}: {
+  label: ReactNode;
+  n?: number;
+  id?: string;
+  heading?: boolean;
+  children: ReactNode;
+}) {
+  const Label = heading ? "h2" : "p";
   return (
-    <h1
-      aria-label={size === "home" ? children : undefined}
-      className={[
-        "max-w-[20ch] font-display font-semibold tracking-[-0.025em] text-balance",
-        size === "home"
-          ? "text-[clamp(2rem,5.4vw,3.625rem)] leading-[1.05]"
-          : "text-[clamp(1.875rem,4.2vw,2.75rem)] leading-[1.08]",
-      ].join(" ")}
+    <section
+      id={id}
+      data-reveal
+      style={{ "--n": n } as CSSProperties}
+      className="grid scroll-mt-6 gap-x-6 gap-y-2 border-t border-rule py-7 first:border-t-0 first:pt-9 sm:grid-cols-[8.5rem_minmax(0,1fr)] sm:py-8"
     >
-      {size === "home"
-        ? words.map((word, i) => (
-            <Fragment key={i}>
-              {i > 0 && " "}
-              <span aria-hidden className="word">
-                <span style={{ "--i": i } as CSSProperties}>{word}</span>
-              </span>
-            </Fragment>
-          ))
-        : children}
-    </h1>
-  );
-}
-
-export function Lead({ children }: { children: ReactNode }) {
-  return <p className="max-w-[52ch] text-[1.0625rem] leading-relaxed text-pretty text-muted">{children}</p>;
-}
-
-export function Body({ children }: { children: ReactNode }) {
-  return <p className="max-w-[62ch] text-[1.0625rem] leading-relaxed text-pretty">{children}</p>;
-}
-
-/** A titled part of a longer page, like the sections of the brief. */
-export function Section({ heading, children }: { heading: string; children: ReactNode }) {
-  return (
-    <section className="flex flex-col gap-3 border-t border-rule pt-6">
-      <h2 className="font-display text-[1.375rem] leading-tight font-medium tracking-[-0.01em]">{heading}</h2>
-      {children}
+      <Label className="label font-normal">{label}</Label>
+      <div className="min-w-0">{children}</div>
     </section>
   );
 }
 
-/**
- * A section's name as a small label on a hairline, with how many things it
- * holds (or a short note) at the far end: SERVICES ──────── 06.
- */
-export function SectionLabel({ children, count, aside }: { children: string; count?: number; aside?: string }) {
+/** The page's one statement. */
+export function Title({ children }: { children: ReactNode }) {
   return (
-    <div className="flex items-center gap-4">
-      <h2 className="shrink-0 eyebrow">{children}</h2>
-      <span aria-hidden className="h-px flex-1 bg-rule" />
-      {count !== undefined && <span className="eyebrow tabular-nums">{pad2(count)}</span>}
-      {aside && <span className="eyebrow">{aside}</span>}
-    </div>
+    <h1 className="mb-4 max-w-[24ch] text-[clamp(1.5rem,4vw,1.875rem)] leading-[1.2] font-semibold tracking-[-0.02em] text-balance">
+      {children}
+    </h1>
+  );
+}
+
+/** Running text, one comfortable measure. */
+export function Body({ children }: { children: ReactNode }) {
+  return <p className="mb-3 max-w-[54ch] text-muted">{children}</p>;
+}
+
+/** A heading inside a longer row, like the parts of the brief. */
+export function Subhead({ children }: { children: ReactNode }) {
+  return <h3 className="mt-6 mb-1.5 font-medium first:mt-0">{children}</h3>;
+}
+
+/** Label and value pairs, e.g. "Based in · Linköping". Stacks on phones. */
+export function Facts({ items }: { items: readonly { label: string; value: ReactNode }[] }) {
+  return (
+    <dl className="mt-4 grid gap-x-5 gap-y-1 text-sm sm:grid-cols-[auto_minmax(0,1fr)] sm:items-baseline [&>div:not(:first-child)>dt]:pt-2 sm:[&>div>dt]:pt-0">
+      {items.map((item) => (
+        <div key={item.label} className="contents">
+          <dt className="label">{item.label}</dt>
+          <dd className="leading-[1.75]">{item.value}</dd>
+        </div>
+      ))}
+    </dl>
   );
 }
 
 export function Actions({ children }: { children: ReactNode }) {
-  return <div className="flex flex-wrap items-center gap-3 pt-2">{children}</div>;
+  return <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">{children}</div>;
 }
 
-const button = "inline-flex min-h-11 items-center rounded-full border border-fg px-[1.125rem] text-[0.9375rem]";
-
-/** The solid button a page ends on, e.g. "Have a project?", with an arrow that nudges forward on hover. */
+/** The one solid button on a page, with an arrow that nudges forward on hover. */
 export function PrimaryLink({ href, children }: { href: string; children: ReactNode }) {
   return (
-    <Link href={href} prefetch className={`group gap-2 ${button} bg-fg text-bg transition-opacity hover:opacity-90`}>
+    <Link
+      href={href}
+      className="group inline-flex h-[38px] items-center gap-2 rounded-[7px] bg-fg px-[15px] text-sm font-medium text-bg"
+    >
       {children}
-      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-0.5">
+      <span aria-hidden className="transition-transform duration-300 group-hover:translate-x-[3px]">
         →
       </span>
     </Link>
   );
 }
 
-export function SecondaryLink({ href, children }: { href: string; children: ReactNode }) {
-  const className = `${button} hover:bg-fg/5`;
+/** A quiet text link with a hairline underneath. External addresses open as plain links. */
+export function TextLink({ href, children }: { href: string; children: ReactNode }) {
   return href.startsWith("http") ? (
-    <a href={href} className={className} rel="noopener">
+    <a href={href} className="link" rel="noopener">
       {children}
     </a>
   ) : (
-    <Link href={href} prefetch className={className}>
+    <Link href={href} prefetch className="link">
       {children}
     </Link>
   );

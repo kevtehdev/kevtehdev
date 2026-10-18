@@ -2,56 +2,50 @@ import { Fragment } from "react";
 import { pad2 } from "@/lib/format";
 import { viewPath } from "@/lib/i18n";
 import { Services } from "../Services";
-import { Actions, Eyebrow, Page, PrimaryLink, Section, Title, type ViewProps } from "./parts";
+import { Actions, Facts, Page, PrimaryLink, Row, Title, type ViewProps } from "./parts";
 
 /** What I offer, how a project runs, and the tools behind it. Opened from About. */
 export function Skills({ locale, dict }: ViewProps) {
   return (
     <Page>
-      <Eyebrow>{dict.skills.kicker}</Eyebrow>
-      <Title>{dict.skills.title}</Title>
+      <Row n={1} heading={false} label={dict.skills.kicker}>
+        <Title>{dict.skills.title}</Title>
+      </Row>
 
-      <Section heading={dict.services.heading}>
-        <div className="pt-3">
-          <Services services={dict.services} />
-        </div>
-      </Section>
+      <Row n={2} label={dict.services.heading}>
+        <Services services={dict.services} />
+      </Row>
 
-      <Section heading={dict.skills.processHeading}>
-        <ol className="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+      <Row n={3} label={dict.skills.processHeading}>
+        <ol className="grid gap-x-8 gap-y-4 sm:grid-cols-2">
           {dict.skills.process.map((item, i) => (
-            <li key={item.step} className="flex flex-col gap-1">
-              <span className="eyebrow">
+            <li key={item.step}>
+              <p className="label">
                 {pad2(i + 1)} · {item.step}
-              </span>
-              <span className="max-w-[40ch] leading-relaxed">{item.text}</span>
+              </p>
+              <p className="max-w-[40ch] text-muted">{item.text}</p>
             </li>
           ))}
         </ol>
-      </Section>
+      </Row>
 
-      <Section heading={dict.skills.toolsHeading}>
-        <dl className="grid grid-cols-1 gap-y-0.5 sm:grid-cols-[minmax(0,auto)_minmax(0,1fr)] sm:items-baseline sm:gap-x-6 sm:gap-y-2 [&>div:not(:first-child)>dt]:pt-3 sm:[&>div>dt]:pt-0">
-          {dict.skills.tools.map((tool) => (
-            <div key={tool.group} className="contents">
-              <dt className="eyebrow">{tool.group}</dt>
-              <dd>
-                {/* Wrap between tools, never inside a name like "GitHub Actions". */}
-                {tool.list.split(" · ").map((name, i) => (
-                  <Fragment key={name}>
-                    {i > 0 && <span className="text-muted"> · </span>}
-                    <span className="whitespace-nowrap">{name}</span>
-                  </Fragment>
-                ))}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      </Section>
-
-      <Actions>
-        <PrimaryLink href={viewPath(locale, "contact")}>{dict.skills.cta}</PrimaryLink>
-      </Actions>
+      <Row n={4} label={dict.skills.toolsHeading}>
+        <Facts
+          items={dict.skills.tools.map((tool) => ({
+            label: tool.group,
+            // Wrap between tools, never inside a name like "GitHub Actions".
+            value: tool.list.split(" · ").map((name, i) => (
+              <Fragment key={name}>
+                {i > 0 && <span className="text-faint"> · </span>}
+                <span className="whitespace-nowrap">{name}</span>
+              </Fragment>
+            )),
+          }))}
+        />
+        <Actions>
+          <PrimaryLink href={viewPath(locale, "contact")}>{dict.skills.cta}</PrimaryLink>
+        </Actions>
+      </Row>
     </Page>
   );
 }

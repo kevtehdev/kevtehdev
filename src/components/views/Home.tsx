@@ -1,57 +1,100 @@
-import { viewPath } from "@/lib/i18n";
-import { Actions, Lead, Page, PrimaryLink, SectionLabel, Title, type ViewProps } from "./parts";
+import { site } from "@/content/site";
+import { BriefContent } from "../BriefContent";
+import { BriefToggle } from "../BriefToggle";
+import { CopyEmail } from "../CopyEmail";
+import { scoreLine } from "../Scores";
+import { Services } from "../Services";
+import { Actions, Body, Facts, Page, PrimaryLink, Row, TextLink, Title, type ViewProps } from "./parts";
 
-/** A short statement, then a log of what I've shipped next to what I build. */
-export function Home({ locale, dict }: ViewProps) {
+/**
+ * The whole site on one page, as rows: who I am, what I've shipped, the work
+ * (with its brief opening in place), what I do, about, and how to reach me.
+ */
+export function Home({ dict }: ViewProps) {
   return (
     <Page>
-      <div className="flex flex-col gap-6">
-        <Title size="home">{dict.home.title}</Title>
-        <Lead>{dict.home.lead}</Lead>
+      <Row
+        n={1}
+        heading={false}
+        label={
+          <>
+            {site.name}
+            <span className="block text-muted max-sm:inline max-sm:before:content-['_·_']">{dict.home.label}</span>
+          </>
+        }
+      >
+        <Title>{dict.home.title}</Title>
+        {dict.home.lead.map((paragraph) => (
+          <Body key={paragraph}>{paragraph}</Body>
+        ))}
         <Actions>
-          <PrimaryLink href={viewPath(locale, "contact")}>{dict.home.cta}</PrimaryLink>
+          <PrimaryLink href="#contact">{dict.home.cta}</PrimaryLink>
+          <CopyEmail email={site.email} done={dict.contact.copied} />
         </Actions>
-      </div>
+      </Row>
 
-      <div className="grid gap-x-14 gap-y-14 pt-16 md:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)]">
-        <section className="flex flex-col gap-5">
-          <SectionLabel aside={dict.home.logOrder}>{dict.home.logLabel}</SectionLabel>
-          <ol className="relative flex flex-col before:absolute before:top-3 before:bottom-3 before:left-[4px] before:w-px before:bg-rule">
-            {dict.home.log.map((entry, i) => (
-              <li key={entry.text} className="relative grid grid-cols-[5rem_minmax(0,1fr)] gap-3 py-2 pl-6 text-sm">
-                <span
-                  aria-hidden
-                  className={[
-                    "absolute top-[0.9rem] left-0 size-[9px] rounded-full border",
-                    i === 0 ? "border-fg bg-fg" : "border-muted bg-bg",
-                  ].join(" ")}
-                />
-                {/* An entry without a date is the one in progress right now. */}
-                <span className="font-mono text-xs leading-5 text-muted">{entry.date || dict.home.now}</span>
-                {entry.href ? (
-                  <a href={entry.href} className="link" rel="noopener">
-                    {entry.text} ↗
-                  </a>
-                ) : (
-                  <span>{entry.text}</span>
-                )}
-              </li>
-            ))}
-          </ol>
-        </section>
+      <Row n={2} label={dict.home.logLabel}>
+        <ol>
+          {dict.home.log.map((entry) => (
+            <li key={entry.text} className="grid grid-cols-[5.25rem_minmax(0,1fr)] items-baseline gap-3.5 py-1.5">
+              {entry.date ? (
+                <span className="font-mono text-xs text-faint">{entry.date}</span>
+              ) : (
+                // An entry without a date is the one in progress right now.
+                <span className="inline-flex items-center gap-[7px] font-mono text-xs before:size-[5px] before:rounded-full before:bg-fg">
+                  {dict.home.now}
+                </span>
+              )}
+              <span>{entry.href ? <TextLink href={entry.href}>{entry.text}</TextLink> : entry.text}</span>
+            </li>
+          ))}
+        </ol>
+      </Row>
 
-        <section className="flex flex-col gap-5">
-          <SectionLabel count={dict.services.items.length}>{dict.services.heading}</SectionLabel>
-          <ul className="flex flex-col">
-            {dict.services.items.map((item) => (
-              <li key={item.title} className="flex flex-col gap-0.5 border-b border-rule py-3">
-                <h3 className="font-display text-base font-semibold">{item.title}</h3>
-                <p className="text-sm text-pretty text-muted">{item.text}</p>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <Row n={3} label={dict.home.workLabel}>
+        <article>
+          <h3 className="text-[1.0625rem] font-medium">{dict.case.title}</h3>
+          <p className="mt-0.5 mb-3 text-muted">{dict.home.work.what}</p>
+          <p className="flex flex-wrap gap-x-[18px] gap-y-1 font-mono text-xs text-faint">
+            <span>{dict.home.work.year}</span>
+            <span>{dict.home.work.stack}</span>
+            <span>
+              Lighthouse <span className="text-fg">{scoreLine(dict)}</span>
+            </span>
+          </p>
+          <BriefToggle
+            read={dict.home.work.readBrief}
+            hide={dict.home.work.hideBrief}
+            close={dict.home.work.closeBrief}
+            aside={<TextLink href={site.latestCase.url}>{dict.case.link} ↗</TextLink>}
+          >
+            <BriefContent dict={dict} />
+          </BriefToggle>
+        </article>
+      </Row>
+
+      <Row n={4} label={dict.home.servicesLabel}>
+        <Services services={dict.services} />
+      </Row>
+
+      <Row n={5} label={dict.home.aboutLabel}>
+        <Body>{dict.about.body[2]}</Body>
+        <Facts items={dict.about.facts} />
+      </Row>
+
+      <Row n={6} id="contact" label={dict.home.contactLabel}>
+        <p className="mb-1.5">{dict.contact.body}</p>
+        <p className="flex flex-wrap gap-x-3">
+          <a href={`mailto:${site.email}`} className="link">
+            {site.email}
+          </a>
+          {site.profiles.map((profile) => (
+            <a key={profile.href} href={profile.href} className="link" rel="me noopener">
+              {profile.label}
+            </a>
+          ))}
+        </p>
+      </Row>
     </Page>
   );
 }

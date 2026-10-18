@@ -2,12 +2,14 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
+import type { CSSProperties } from "react";
+import { FooterNav } from "@/components/FooterNav";
 import { Header } from "@/components/Header";
 import { Intro } from "@/components/Intro";
 import { site } from "@/content/site";
 import { getDictionary, hasLocale, locales } from "@/lib/i18n";
 import { structuredData } from "@/lib/structuredData";
-import { display, mono, sans } from "../fonts";
+import { mono, sans } from "../fonts";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -37,8 +39,8 @@ export async function generateMetadata({ params }: LayoutProps<"/[lang]">): Prom
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#f5f6f8" },
-    { media: "(prefers-color-scheme: dark)", color: "#101216" },
+    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0d0e" },
   ],
 };
 
@@ -49,30 +51,31 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
 
   return (
     // The intro script sets data-intro on <html> before React hydrates.
-    <html lang={lang} className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
-      <body className="relative bg-bg font-sans text-fg antialiased">
+    <html lang={lang} className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
+      <body className="bg-bg font-sans text-[15px] leading-[1.65] text-fg antialiased">
         <Intro />
         <a
           href="#main"
-          className="fixed top-3 left-3 z-[60] -translate-y-20 rounded-full bg-fg px-4 py-2 text-sm text-bg focus:translate-y-0"
+          className="fixed top-3 left-3 z-[60] -translate-y-20 rounded-[7px] bg-fg px-4 py-2 text-sm text-bg focus:translate-y-0"
         >
           {dict.skip}
         </a>
-        <div className="relative px-[max(1rem,env(safe-area-inset-left))] sm:px-8">
-          <div className="mx-auto flex min-h-dvh max-w-[65rem] flex-col">
-            <Header locale={lang} nav={dict.nav} language={dict.language} timeLabel={dict.home.localTime} />
+        {/* One narrow reading column: an 8.5rem label column and a 40rem measure. */}
+        <div className="px-[max(1.25rem,env(safe-area-inset-left))]">
+          <div className="mx-auto flex min-h-dvh max-w-[48.5rem] flex-col">
+            <Header locale={lang} language={dict.language} timeLabel={dict.home.localTime} />
             <main id="main" className="flex-1">
               {children}
             </main>
-            <footer data-reveal className="flex flex-wrap gap-x-5 gap-y-2 border-t border-rule py-6 eyebrow">
-              <a href={`mailto:${site.email}`} className="hover:text-fg">
-                {site.email}
-              </a>
-              {site.profiles.map((profile) => (
-                <a key={profile.href} href={profile.href} className="hover:text-fg" rel="me noopener">
-                  {profile.label} ↗
-                </a>
-              ))}
+            <footer
+              data-reveal
+              style={{ "--n": 8 } as CSSProperties}
+              className="flex flex-wrap items-center justify-between gap-x-6 border-t border-rule py-4 label"
+            >
+              <FooterNav locale={lang} nav={dict.nav} />
+              <span>
+                {site.name} · {site.location}
+              </span>
             </footer>
           </div>
         </div>
