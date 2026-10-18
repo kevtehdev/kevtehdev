@@ -46,7 +46,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const { lang } = await params;
   if (!hasLocale(lang)) notFound();
   const dict = getDictionary(lang);
-  const deploy = process.env.VERCEL_GIT_COMMIT_SHA;
 
   return (
     // The intro script sets data-intro on <html> before React hydrates.
@@ -65,32 +64,15 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
             <main id="main" className="flex-1">
               {children}
             </main>
-            <footer
-              data-reveal
-              className="flex flex-wrap justify-between gap-x-6 gap-y-2 border-t border-rule py-6 eyebrow"
-            >
-              <span className="flex flex-wrap gap-x-5 gap-y-2">
-                <a href={`mailto:${site.email}`} className="hover:text-fg">
-                  {site.email}
+            <footer data-reveal className="flex flex-wrap gap-x-5 gap-y-2 border-t border-rule py-6 eyebrow">
+              <a href={`mailto:${site.email}`} className="hover:text-fg">
+                {site.email}
+              </a>
+              {site.profiles.map((profile) => (
+                <a key={profile.href} href={profile.href} className="hover:text-fg" rel="me noopener">
+                  {profile.label} ↗
                 </a>
-                {site.profiles.map((profile) => (
-                  <a key={profile.href} href={profile.href} className="hover:text-fg" rel="me noopener">
-                    {profile.label} ↗
-                  </a>
-                ))}
-              </span>
-              <span className="flex flex-wrap gap-x-2">
-                {site.location}
-                {deploy && (
-                  <>
-                    <span aria-hidden>·</span>
-                    {/* The exact commit this page was built from. Set by Vercel at build time. */}
-                    <a href={`${site.repo}/commit/${deploy}`} className="hover:text-fg" rel="noopener">
-                      deploy <span className="normal-case">{deploy.slice(0, 7)}</span>
-                    </a>
-                  </>
-                )}
-              </span>
+              ))}
             </footer>
           </div>
         </div>
