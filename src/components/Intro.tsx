@@ -26,11 +26,12 @@ const script = `(() => {
       root.dataset.intro = "leaving";
       from.animate(
         [{ transform: "none" }, { transform: "translate(" + (b.left - a.left) + "px, " + (b.top - a.top) + "px)" }],
-        { duration: still ? 0 : 650, easing: "cubic-bezier(0.65, 0, 0.35, 1)", fill: "forwards" },
+        // A calm start and a long, soft landing, beginning as the line fades out.
+        { duration: still ? 0 : 900, delay: still ? 0 : 120, easing: "cubic-bezier(0.45, 0, 0.15, 1)", fill: "forwards" },
       ).onfinish = () => {
         root.dataset.intro = "done";
-        // Once the score rings have filled, later pages animate on their own timing.
-        setTimeout(() => delete root.dataset.intro, 1600);
+        // Once the page has settled, later pages animate on their own timing.
+        setTimeout(() => delete root.dataset.intro, 1800);
       };
     }, 1550);
   }

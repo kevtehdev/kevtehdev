@@ -139,9 +139,12 @@ export function DotField() {
       frame = requestAnimationFrame(tick);
     }
 
+    // Wait out the intro, so the wordmark's move never shares the GPU with the field.
+    const intro = () => ["play", "loading", "leaving"].includes(document.documentElement.dataset.intro ?? "");
+
     function play() {
       cancelAnimationFrame(frame);
-      if (still.matches || !onScreen || document.hidden) return void draw();
+      if (still.matches || !onScreen || document.hidden || intro()) return void draw();
       last = performance.now();
       frame = requestAnimationFrame(tick);
     }
@@ -165,11 +168,13 @@ export function DotField() {
       onScreen = entry.isIntersecting;
       play();
     });
+    const introWatcher = new MutationObserver(play);
 
     colors();
     resize();
     resizer.observe(canvas);
     watcher.observe(canvas);
+    introWatcher.observe(document.documentElement, { attributes: true, attributeFilter: ["data-intro"] });
     addEventListener("pointermove", onPointer, { passive: true });
     document.addEventListener("visibilitychange", play);
     still.addEventListener("change", play);
@@ -180,6 +185,7 @@ export function DotField() {
       cancelAnimationFrame(frame);
       resizer.disconnect();
       watcher.disconnect();
+      introWatcher.disconnect();
       removeEventListener("pointermove", onPointer);
       document.removeEventListener("visibilitychange", play);
       still.removeEventListener("change", play);
