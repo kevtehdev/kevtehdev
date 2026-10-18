@@ -19,8 +19,6 @@ export const site = {
     "Docker",
     "Kubernetes",
   ],
-  // When new projects can start. Null means "Available now"; set a month to show "Available from …".
-  availableFrom: null as { en: string; sv: string } | null,
   // Due date of the project on the Now page.
   nowDue: {
     en: "October",

@@ -26,23 +26,7 @@ export const sv: Dictionary = {
     title: "Webbplatser, webbutiker och systemen som driver ert företag.",
     lead: "Utvecklare i Linköping som studerar C och C++ på Chas Academy. Jag bygger åt små och växande företag, från första skissen till lansering.",
     cta: "Har du ett projekt?",
-    status: {
-      label: "Status",
-      localTime: "Lokal tid",
-      latest: "Senaste lansering",
-      lighthouse: "Lighthouse",
-    },
     localTime: "Lokal tid i Linköping",
-    logLabel: "Logg",
-    logOrder: "Senaste först",
-    now: "nu",
-    log: [
-      { date: "", text: "Bygger Örhall Property Groups sajt" },
-      { date: "okt 2026", text: "Publicerade kevdev.codes" },
-      { date: "2026", text: "Publicerade Warde Propertys sajt", href: "https://www.wardeproperty.com" },
-    ],
-    available: "Ledig från",
-    availableNow: "Ledig nu",
   },
   services: {
     label: "Tjänster",

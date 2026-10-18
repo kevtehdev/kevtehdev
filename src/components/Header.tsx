@@ -5,15 +5,18 @@ import { usePathname } from "next/navigation";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { site } from "@/content/site";
 import { type Locale, locales, navViews, parentView, viewPath, views } from "@/lib/i18n";
+import { LocalTime } from "./LocalTime";
 
 type HeaderProps = {
   locale: Locale;
   nav: Dictionary["nav"];
   language: Dictionary["language"];
+  /** Tooltip for the clock, e.g. "Local time in Linköping". */
+  timeLabel: string;
 };
 
-/** The wordmark home, the menu, and the language switch, which keeps the current page. */
-export function Header({ locale, nav, language }: HeaderProps) {
+/** The wordmark home, the menu, my local time, and the language switch, which keeps the current page. */
+export function Header({ locale, nav, language, timeLabel }: HeaderProps) {
   const pathname = usePathname();
   const view = views.find((v) => pathname === viewPath(locale, v));
   const current = view && (parentView[view] ?? view);
@@ -54,24 +57,30 @@ export function Header({ locale, nav, language }: HeaderProps) {
           ))}
         </ul>
       </nav>
-      <nav data-reveal aria-label={language.label} className="col-start-2 row-start-1 -mr-2.5 sm:mr-0">
-        <ul className="flex gap-1 font-mono text-xs tracking-[0.08em] uppercase">
-          {locales.map((target) => (
-            <li key={target}>
-              <Link
-                href={`/${target}${rest}`}
-                hrefLang={target}
-                lang={target}
-                title={language[target]}
-                aria-current={target === locale ? "true" : undefined}
-                className="flex min-h-11 min-w-9 items-center justify-center text-muted hover:text-fg aria-[current=true]:text-fg"
-              >
-                {target}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div data-reveal className="col-start-2 row-start-1 -mr-2.5 flex items-center gap-3 sm:mr-0">
+        <span className="min-w-[5ch] text-right font-mono text-xs text-muted">
+          <LocalTime locale={locale} label={timeLabel} />
+        </span>
+        <span aria-hidden className="h-3 w-px bg-rule" />
+        <nav aria-label={language.label}>
+          <ul className="flex gap-1 font-mono text-xs tracking-[0.08em] uppercase">
+            {locales.map((target) => (
+              <li key={target}>
+                <Link
+                  href={`/${target}${rest}`}
+                  hrefLang={target}
+                  lang={target}
+                  title={language[target]}
+                  aria-current={target === locale ? "true" : undefined}
+                  className="flex min-h-11 min-w-9 items-center justify-center text-muted hover:text-fg aria-[current=true]:text-fg"
+                >
+                  {target}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
     </header>
   );
 }

@@ -60,7 +60,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
         </a>
         <div className="relative px-[max(1rem,env(safe-area-inset-left))] sm:px-8">
           <div className="mx-auto flex min-h-dvh max-w-[65rem] flex-col">
-            <Header locale={lang} nav={dict.nav} language={dict.language} />
+            <Header locale={lang} nav={dict.nav} language={dict.language} timeLabel={dict.home.localTime} />
             <main id="main" className="flex-1">
               {children}
             </main>
