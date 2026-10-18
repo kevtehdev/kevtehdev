@@ -34,7 +34,7 @@ export const en = {
     log: [
       { date: "", text: "Building a site for Örhall Property Group" },
       { date: "Oct 2026", text: "Put this site live" },
-      { date: "2026", text: "Launched Warde Property", href: "https://www.wardeproperty.com" },
+      { date: "Oct 2026", text: "Launched Warde Property", href: "https://www.wardeproperty.com" },
     ],
     workLabel: "Work",
     work: {
@@ -83,12 +83,14 @@ export const en = {
     title: "Warde Property",
     body: "A new website and an in-house admin for an estate agency on the Côte d’Azur. The agents run listings, articles and newsletters themselves, and the site kept the rankings of the old one.",
     figures: [
-      { value: "97–99", label: "Performance, mobile" },
+      // `device` marks the performance scores, which differ between desktop and mobile.
+      { value: "100", label: "Performance, desktop", device: "desktop" },
+      { value: "97–99", label: "Performance, mobile", device: "mobile" },
       { value: "100", label: "Accessibility" },
       { value: "100", label: "Best practices" },
       { value: "100", label: "SEO" },
     ],
-    figuresSource: "Lighthouse, mobile · 6 live pages",
+    figuresSource: "Lighthouse · 6 live pages",
     test: "Test it yourself",
     link: "Visit the site",
     brief: "Read the brief",

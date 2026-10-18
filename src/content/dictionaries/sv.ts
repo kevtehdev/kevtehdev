@@ -36,7 +36,7 @@ export const sv: Dictionary = {
     log: [
       { date: "", text: "Bygger en sajt åt Örhall Property Group" },
       { date: "okt 2026", text: "Lade ut den här sajten" },
-      { date: "2026", text: "Lanserade Warde Property", href: "https://www.wardeproperty.com" },
+      { date: "okt 2026", text: "Lanserade Warde Property", href: "https://www.wardeproperty.com" },
     ],
     workLabel: "Arbete",
     work: {
@@ -85,12 +85,13 @@ export const sv: Dictionary = {
     title: "Warde Property",
     body: "En ny webbplats och ett eget adminverktyg för en mäklare på Côte d’Azur. Mäklarna sköter objekt, artiklar och nyhetsbrev själva, och sajten behöll den gamlas placeringar.",
     figures: [
-      { value: "97–99", label: "Prestanda, mobil" },
+      { value: "100", label: "Prestanda, dator", device: "dator" },
+      { value: "97–99", label: "Prestanda, mobil", device: "mobil" },
       { value: "100", label: "Tillgänglighet" },
       { value: "100", label: "Bästa praxis" },
       { value: "100", label: "SEO" },
     ],
-    figuresSource: "Lighthouse, mobil · 6 sidor live",
+    figuresSource: "Lighthouse · 6 sidor live",
     test: "Testa själv",
     link: "Besök sajten",
     brief: "Läs briefen",

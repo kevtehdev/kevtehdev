@@ -2,7 +2,7 @@ import { site } from "@/content/site";
 import { BriefContent } from "../BriefContent";
 import { BriefToggle } from "../BriefToggle";
 import { CopyEmail } from "../CopyEmail";
-import { scoreLine } from "../Scores";
+import { performanceLine } from "../Scores";
 import { Services } from "../Services";
 import { Actions, Body, Facts, Page, PrimaryLink, Row, TextLink, Title, type ViewProps } from "./parts";
 
@@ -59,7 +59,7 @@ export function Home({ dict }: ViewProps) {
             <span>{dict.home.work.year}</span>
             <span>{dict.home.work.stack}</span>
             <span>
-              Lighthouse <span className="text-fg">{scoreLine(dict)}</span>
+              Lighthouse <span className="text-fg">{performanceLine(dict)}</span>
             </span>
           </p>
           <BriefToggle

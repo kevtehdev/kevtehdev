@@ -1,7 +1,7 @@
 import { Fragment } from "react";
 import type { Dictionary } from "@/content/dictionaries/en";
 import { Body, Subhead } from "./views/parts";
-import { scoreLine } from "./Scores";
+import { Scores } from "./Scores";
 
 /** The Warde brief as a short article. Opened in place on Home, and the whole of /brief. */
 export function BriefContent({ dict, heading = true }: { dict: Dictionary; heading?: boolean }) {
@@ -21,9 +21,9 @@ export function BriefContent({ dict, heading = true }: { dict: Dictionary; headi
       ))}
       <Subhead>{dict.brief.results}</Subhead>
       <Body>{dict.brief.rankings}</Body>
-      <p className="mt-2 label">
-        {dict.case.figuresSource} · {scoreLine(dict)}
-      </p>
+      <div className="mt-4">
+        <Scores dict={dict} />
+      </div>
       <p className="mt-5 label">{dict.brief.tools}</p>
     </>
   );
