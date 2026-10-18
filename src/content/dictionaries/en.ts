@@ -1,6 +1,6 @@
 export const en = {
   meta: {
-    title: "Fullstack developer",
+    title: "Developer",
     description:
       "Kevin builds fast websites, online stores and the systems behind them, and sets up AI automation that stays safe. Next.js, TypeScript and Payload CMS, from Linköping, Sweden.",
   },
@@ -94,7 +94,16 @@ export const en = {
   about: {
     kicker: "About",
     title: "Hi, I’m Kevin.",
-    body: "I’m a fullstack developer from Linköping, and I care about a few things that nobody notices until they’re missing: pages that load instantly, admin panels that make sense, code someone else can read next year. I picked that up writing C and C++, where sloppy code doesn’t just slow down, it crashes. Now I bring that discipline to the web.",
+    body: [
+      "I’m a developer in Linköping. I build websites, online stores and the systems behind them for small and growing companies, from the first sketch to launch and the weeks after.",
+      "Alongside client work I study C and C++ at Chas Academy, in a two-year programme. Working that close to the machine shapes how I build for the web: I think about memory and speed, and I want code to fail loudly rather than quietly. In C, sloppy code doesn’t just run slow, it crashes.",
+      "What I care about most is what nobody notices until it’s missing: pages that load instantly, admin panels that make sense, and code someone else can read next year.",
+    ],
+    facts: [
+      { label: "Based in", value: "Linköping, Sweden" },
+      { label: "Studying", value: "C and C++ at Chas Academy" },
+      { label: "Builds with", value: "Next.js · TypeScript · Go · PostgreSQL" },
+    ],
     skills: "What I work with, and how I work →",
   },
   contact: {
@@ -132,23 +141,23 @@ export const en = {
     sections: [
       {
         heading: "The problem",
-        body: "Warde ran their listings in a rented estate-agency system and their website on WordPress, and neither would export their data. They wanted to own it, get a faster site and publish without a developer, without losing the Google rankings they had built up.",
+        body: "Warde Property is a boutique estate agency in Nice. Its listings lived in a rented estate-agency system with no way to export them, and its website ran separately on WordPress. Joacim and his team wanted to own their data, a faster site, and to publish listings and articles themselves, without losing the Google rankings they had built up over the years.",
       },
       {
         heading: "What I built",
-        body: "A new Next.js site with an admin on Payload CMS and PostgreSQL. Agents add listings with photos, price and status (active, reserved, sold, archived), and archive instead of delete. Editors build articles and pages from blocks, preview drafts on the real site, schedule posts and send the newsletter. Roles are checked on the server, every change lands in an audit log, and redirects live in the admin.",
+        body: "I designed and built a new site in Next.js with its own admin on Payload CMS and PostgreSQL. The agents add listings with photos, price and status (active, reserved, sold or archived), and a published listing is archived, never deleted. Editors write articles and pages from ready-made blocks, preview drafts on the real site, schedule posts and send the newsletter. Permissions are checked on the server, and every change is written to an audit log.",
       },
       {
         heading: "Keeping the rankings",
-        body: "Before changing anything I took a baseline from Search Console and crawled the old site. The new site keeps the URL structure, every address that changes gets a 301 that CI tests, and pages ship sitemaps and structured data. The old system had no export, so I read all 81 listings off the public site and imported them.",
+        body: "Before changing anything, I crawled the old site with my own script, 277 addresses, and used Search Console as the baseline. Of 222 listing pages, 81 still had a home behind them; with no export available, I read those from the public site and imported them. Every old address now leads to its new page in a single 301, and after launch I followed Search Console to close the last gaps.",
       },
       {
         heading: "Built to last",
-        body: "TypeScript in strict mode, end-to-end tests with Playwright and axe, and CI that runs a dependency audit and a secret scan on every change. Accessibility targets WCAG 2.1 AA. A CRM and sync with their lead system are prepared as extension points, not built, so the next phase starts on solid ground.",
+        body: "Strict TypeScript, end-to-end tests with Playwright and axe, and CI that runs a dependency audit and a secret scan on every change. The public site is built to WCAG 2.1 AA. A CRM and a sync with Apimo, the agency's listing software, are prepared as extension points rather than built, so the next phase starts on solid ground.",
       },
     ],
     results: "Results",
-    rankings: "All 247 addresses from the old site lead to the new pages in one step.",
+    rankings: "Every one of the 247 addresses from the old site leads to its new page in one step.",
     stack: "Stack",
     tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
     back: "← Back to the case",

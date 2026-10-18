@@ -2,7 +2,7 @@ import type { Dictionary } from "./en";
 
 export const sv: Dictionary = {
   meta: {
-    title: "Fullstackutvecklare",
+    title: "Utvecklare",
     description:
       "Kevin bygger snabba webbplatser, webbutiker och systemen bakom dem, och sätter upp AI-automation som är säker. Next.js, TypeScript och Payload CMS, från Linköping.",
   },
@@ -95,7 +95,16 @@ export const sv: Dictionary = {
   about: {
     kicker: "Om mig",
     title: "Hej, jag heter Kevin.",
-    body: "Jag är fullstackutvecklare från Linköping och bryr mig om några saker som ingen märker förrän de saknas: sidor som laddar direkt, adminpaneler som går att förstå, kod som någon annan kan läsa nästa år. Det lärde jag mig genom att skriva C och C++, där slarvig kod inte bara blir långsam, den kraschar. Nu tar jag med mig den disciplinen till webben.",
+    body: [
+      "Jag är utvecklare i Linköping. Jag bygger webbplatser, webbutiker och systemen bakom dem åt små och växande företag, från första skissen till lansering och veckorna efter.",
+      "Vid sidan av kunduppdragen studerar jag C och C++ på Chas Academy, en tvåårig utbildning. Att jobba så nära maskinen formar hur jag bygger för webben: jag tänker på minne och hastighet, och jag vill att kod säger ifrån direkt i stället för att fela i tysthet. I C blir slarvig kod inte bara långsam, den kraschar.",
+      "Det jag bryr mig mest om är sådant ingen märker förrän det saknas: sidor som laddar direkt, adminpaneler som går att förstå och kod som någon annan kan läsa nästa år.",
+    ],
+    facts: [
+      { label: "Bas", value: "Linköping" },
+      { label: "Studerar", value: "C och C++ på Chas Academy" },
+      { label: "Bygger med", value: "Next.js · TypeScript · Go · PostgreSQL" },
+    ],
     skills: "Vad jag jobbar med, och hur →",
   },
   contact: {
@@ -133,23 +142,23 @@ export const sv: Dictionary = {
     sections: [
       {
         heading: "Problemet",
-        body: "Warde hade sina objekt i ett hyrt mäklarsystem och sin webbplats på WordPress, och inget av dem gick att exportera data ur. De ville äga sin data, få en snabbare sajt och publicera utan utvecklare, utan att tappa placeringarna i Google som de byggt upp.",
+        body: "Warde Property är en boutiquemäklare i Nice. Objekten låg i ett hyrt mäklarsystem som inte gick att exportera ifrån, och webbplatsen drevs separat på WordPress. Joacim och hans team ville äga sin data, få en snabbare sajt och själva publicera objekt och artiklar, utan att tappa placeringarna i Google som de byggt upp under flera år.",
       },
       {
         heading: "Det här byggde jag",
-        body: "En ny Next.js-sajt med ett admin i Payload CMS och PostgreSQL. Mäklarna lägger in objekt med bilder, pris och status (aktiv, reserverad, såld, arkiverad) och arkiverar i stället för att radera. Redaktörerna bygger artiklar och sidor av block, förhandsgranskar utkast på riktiga sajten, schemalägger inlägg och skickar nyhetsbrevet. Roller kontrolleras på servern, varje ändring hamnar i en logg och redirects sköts i adminet.",
+        body: "Jag designade och byggde en ny sajt i Next.js med ett eget admin i Payload CMS och PostgreSQL. Mäklarna lägger in objekt med bilder, pris och status (aktiv, reserverad, såld eller arkiverad), och ett publicerat objekt arkiveras, det raderas aldrig. Redaktörerna skriver artiklar och sidor av färdiga block, förhandsgranskar utkast på den riktiga sajten, schemalägger inlägg och skickar nyhetsbrevet. Behörigheter kontrolleras på servern, och varje ändring skrivs till en logg.",
       },
       {
         heading: "Placeringarna behölls",
-        body: "Innan jag ändrade något tog jag en baslinje från Search Console och crawlade den gamla sajten. Den nya sajten behåller URL-strukturen, varje adress som ändras får en 301 som testas i CI, och sidorna har sitemaps och strukturerad data. Det gamla systemet saknade export, så jag läste av alla 81 objekt från den publika sajten och importerade dem.",
+        body: "Innan jag ändrade något crawlade jag den gamla sajten med ett eget skript, 277 adresser, och använde Search Console som baslinje. Av 222 objektsidor hade 81 fortfarande en bostad bakom sig; utan någon export läste jag av dem från den publika sajten och importerade dem. Varje gammal adress leder nu till sin nya sida med en enda 301, och efter lanseringen följde jag Search Console för att täppa till de sista luckorna.",
       },
       {
         heading: "Byggt för att hålla",
-        body: "TypeScript i strict-läge, end-to-end-tester med Playwright och axe, och CI som kör beroendegranskning och sökning efter hemligheter vid varje ändring. Tillgängligheten siktar på WCAG 2.1 AA. Ett CRM och synk mot deras leadsystem är förberedda som utbyggnadspunkter, inte byggda, så nästa fas börjar på stabil grund.",
+        body: "TypeScript i strict-läge, end-to-end-tester med Playwright och axe, och CI som kör beroendegranskning och sökning efter hemligheter vid varje ändring. Den publika sajten är byggd för WCAG 2.1 AA. Ett CRM och en synk mot Apimo, byråns objektsystem, är förberedda som utbyggnadspunkter, inte byggda, så nästa fas börjar på stabil grund.",
       },
     ],
     results: "Resultat",
-    rankings: "Alla 247 adresser från den gamla sajten leder till de nya sidorna i ett steg.",
+    rankings: "Alla 247 adresser från den gamla sajten leder till sina nya sidor i ett steg.",
     stack: "Teknik",
     tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
     back: "← Tillbaka till caset",
