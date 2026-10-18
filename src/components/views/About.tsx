@@ -11,7 +11,7 @@ export function About({ locale, dict }: ViewProps) {
           <Body key={paragraph}>{paragraph}</Body>
         ))}
       </div>
-      <dl className="grid max-w-[62ch] grid-cols-[minmax(0,auto)_minmax(0,1fr)] items-baseline gap-x-6 gap-y-2 border-t border-rule pt-6">
+      <dl className="grid max-w-[62ch] grid-cols-1 gap-y-0.5 border-t border-rule pt-6 sm:grid-cols-[minmax(0,auto)_minmax(0,1fr)] sm:items-baseline sm:gap-x-6 sm:gap-y-2 [&>div:not(:first-child)>dt]:pt-3 sm:[&>div>dt]:pt-0">
         {dict.about.facts.map((fact) => (
           <div key={fact.label} className="contents">
             <dt className="eyebrow">{fact.label}</dt>

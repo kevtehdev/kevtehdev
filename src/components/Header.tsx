@@ -20,7 +20,9 @@ export function Header({ locale, nav, language }: HeaderProps) {
   const rest = pathname.replace(/^\/[^/]+/, "");
 
   return (
-    <header className="flex flex-wrap items-center justify-between gap-x-8 gap-y-2 py-5">
+    // Phones: name and language on one row, the menu spread across a second row
+    // under a hairline. Wider screens: one row, menu and language to the right.
+    <header className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-6 pt-2 sm:flex sm:gap-x-8 sm:py-5">
       <Link href={viewPath(locale, "home")} className="flex min-h-11 items-center">
         {view === "home" ? (
           // Home sets the domain huge on the page, so the header carries the name.
@@ -32,42 +34,44 @@ export function Header({ locale, nav, language }: HeaderProps) {
           </span>
         )}
       </Link>
-      <div data-reveal className="flex flex-wrap items-center gap-x-6 gap-y-1 text-sm">
-        <nav aria-label={nav.label}>
-          <ul className="flex flex-wrap gap-x-5">
-            {navViews.map((v) => (
-              <li key={v}>
-                <Link
-                  href={viewPath(locale, v)}
-                  prefetch
-                  aria-current={v === current ? "page" : undefined}
-                  className="flex min-h-11 items-center text-muted hover:text-fg aria-[current=page]:text-fg aria-[current=page]:underline aria-[current=page]:decoration-1 aria-[current=page]:underline-offset-[0.4em]"
-                >
-                  {nav[v]}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-        <nav aria-label={language.label}>
-          <ul className="flex gap-1 font-mono text-xs tracking-[0.08em] uppercase">
-            {locales.map((target) => (
-              <li key={target}>
-                <Link
-                  href={`/${target}${rest}`}
-                  hrefLang={target}
-                  lang={target}
-                  title={language[target]}
-                  aria-current={target === locale ? "true" : undefined}
-                  className="flex min-h-11 min-w-9 items-center justify-center text-muted hover:text-fg aria-[current=true]:text-fg"
-                >
-                  {target}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </div>
+      <nav
+        data-reveal
+        aria-label={nav.label}
+        className="col-span-2 row-start-2 border-t border-rule text-sm sm:ml-auto sm:border-0"
+      >
+        <ul className="flex justify-between sm:justify-start sm:gap-x-5">
+          {navViews.map((v) => (
+            <li key={v}>
+              <Link
+                href={viewPath(locale, v)}
+                prefetch
+                aria-current={v === current ? "page" : undefined}
+                className="flex min-h-11 items-center text-muted hover:text-fg aria-[current=page]:text-fg aria-[current=page]:underline aria-[current=page]:decoration-1 aria-[current=page]:underline-offset-[0.4em]"
+              >
+                {nav[v]}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      <nav data-reveal aria-label={language.label} className="col-start-2 row-start-1 -mr-2.5 sm:mr-0">
+        <ul className="flex gap-1 font-mono text-xs tracking-[0.08em] uppercase">
+          {locales.map((target) => (
+            <li key={target}>
+              <Link
+                href={`/${target}${rest}`}
+                hrefLang={target}
+                lang={target}
+                title={language[target]}
+                aria-current={target === locale ? "true" : undefined}
+                className="flex min-h-11 min-w-9 items-center justify-center text-muted hover:text-fg aria-[current=true]:text-fg"
+              >
+                {target}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </header>
   );
 }

@@ -9,7 +9,7 @@ export type ViewProps = { locale: Locale; dict: Dictionary };
 /** Every view is one column under the header, with its parts revealed together after the intro. */
 export function Page({ children }: { children: ReactNode }) {
   return (
-    <div data-reveal className="flex flex-col gap-7 pt-[clamp(2rem,8vh,6.5rem)] pb-16">
+    <div data-reveal className="flex flex-col gap-7 pt-10 pb-16 sm:pt-[clamp(2rem,8vh,6.5rem)]">
       {children}
     </div>
   );

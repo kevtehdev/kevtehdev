@@ -31,7 +31,7 @@ export function Skills({ locale, dict }: ViewProps) {
       </Section>
 
       <Section heading={dict.skills.toolsHeading}>
-        <dl className="grid grid-cols-[minmax(0,auto)_minmax(0,1fr)] items-baseline gap-x-6 gap-y-2">
+        <dl className="grid grid-cols-1 gap-y-0.5 sm:grid-cols-[minmax(0,auto)_minmax(0,1fr)] sm:items-baseline sm:gap-x-6 sm:gap-y-2 [&>div:not(:first-child)>dt]:pt-3 sm:[&>div>dt]:pt-0">
           {dict.skills.tools.map((tool) => (
             <div key={tool.group} className="contents">
               <dt className="eyebrow">{tool.group}</dt>
