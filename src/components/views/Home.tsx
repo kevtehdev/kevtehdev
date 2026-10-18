@@ -21,10 +21,7 @@ export function Home({ locale, dict }: ViewProps) {
         <EmailButton email={site.email} copyLabel={dict.contact.copy} done={dict.contact.copied} />
       </Actions>
       <p className="flex flex-wrap items-center gap-x-2 font-mono text-xs text-muted">
-        <span aria-hidden className="relative flex size-2">
-          <span className="absolute inset-0 animate-ping rounded-full bg-pass opacity-60" />
-          <span className="relative size-2 rounded-full bg-pass" />
-        </span>
+        <span aria-hidden className="size-2 rounded-full bg-pass" />
         {site.availableFrom ? `${dict.home.available} ${site.availableFrom[locale]}` : dict.home.availableNow}
         <span aria-hidden>·</span>
         {site.location} <LocalTime locale={locale} label={dict.home.localTime} />

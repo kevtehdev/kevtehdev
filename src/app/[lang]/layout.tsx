@@ -2,7 +2,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata, Viewport } from "next";
 import { notFound } from "next/navigation";
-import { DotField } from "@/components/DotField";
 import { Header } from "@/components/Header";
 import { Intro } from "@/components/Intro";
 import { site } from "@/content/site";
@@ -54,7 +53,6 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
     <html lang={lang} className={`${display.variable} ${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <body className="relative bg-bg font-sans text-fg antialiased">
         <Intro />
-        <DotField />
         <a
           href="#main"
           className="fixed top-3 left-3 z-[60] -translate-y-20 rounded-full bg-fg px-4 py-2 text-sm text-bg focus:translate-y-0"

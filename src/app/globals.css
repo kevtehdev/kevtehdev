@@ -180,30 +180,6 @@ html:is([data-intro="play"], [data-intro="loading"]) .word > span {
   animation-play-state: paused;
 }
 
-/* A soft green light that follows the pointer over a grid cell (Spotlight.tsx). */
-.spot {
-  position: relative;
-  isolation: isolate;
-}
-
-.spot::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: radial-gradient(
-    22rem circle at var(--x, -100rem) var(--y, -100rem),
-    color-mix(in srgb, var(--pass) 9%, transparent),
-    transparent 65%
-  );
-  opacity: 0;
-  transition: opacity 400ms ease-out;
-}
-
-.spot:hover::before {
-  opacity: 1;
-}
-
 /* Lighthouse-style score rings fill once the page is up. */
 @keyframes ring-fill {
   from {

@@ -8,9 +8,8 @@ export function Now({ locale, dict }: ViewProps) {
         <span className="text-fg">{dict.now.correction || dict.now.status}</span>
         <span
           aria-hidden
-          className="ml-[0.4em] inline-block size-[0.55em] animate-pulse rounded-full bg-pass align-[0.05em]"
-        />{" "}
-        · {dict.now.due} {site.nowDue[locale]}
+          className="ml-[0.4em] inline-block size-[0.55em] rounded-full bg-pass align-[0.05em]"
+        /> · {dict.now.due} {site.nowDue[locale]}
       </Eyebrow>
       <Title>{dict.now.title}</Title>
       <Body>{dict.now.body}</Body>
