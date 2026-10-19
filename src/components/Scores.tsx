@@ -38,7 +38,12 @@ function Gauge({ value, label }: { value: string; label: string }) {
         <span
           className={[
             "absolute inset-0 grid place-items-center font-mono font-semibold text-pass-text tabular-nums",
-            value.length > 3 ? "text-[1.0625rem]" : "text-[1.375rem]",
+            // Ranges like "99–100" need a smaller size to stay inside the ring.
+            value.length > 5
+              ? "text-[0.8125rem] tracking-[-0.02em]"
+              : value.length > 3
+                ? "text-[1.0625rem]"
+                : "text-[1.375rem]",
           ].join(" ")}
         >
           {value}

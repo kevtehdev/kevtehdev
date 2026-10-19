@@ -83,14 +83,13 @@ export const en = {
     title: "Warde Property",
     body: "A new website and an in-house admin for an estate agency on the Côte d’Azur. The agents run listings, articles and newsletters themselves, and the site kept the rankings of the old one.",
     figures: [
-      // `device` marks the performance scores, which differ between desktop and mobile.
-      { value: "100", label: "Performance, desktop", device: "desktop" },
-      { value: "97–99", label: "Performance, mobile", device: "mobile" },
-      { value: "100", label: "Accessibility" },
+      { value: "99–100", label: "Performance, desktop", device: "desktop" },
+      { value: "96–99", label: "Performance, mobile", device: "mobile" },
+      { value: "97–100", label: "Accessibility" },
       { value: "100", label: "Best practices" },
       { value: "100", label: "SEO" },
     ],
-    figuresSource: "Lighthouse · 6 live pages",
+    figuresSource: "Lighthouse · 6 live pages · October 2026",
     test: "Test it yourself",
     link: "Visit the site",
     brief: "Read the brief",
@@ -107,9 +106,9 @@ export const en = {
     kicker: "About",
     title: "Hi, I’m Kevin.",
     body: [
-      "I’m a developer in Linköping. I build websites, online stores and the systems behind them for small and growing companies, from the first sketch to launch and the weeks after.",
-      "Alongside client work I study C and C++ at Chas Academy, in a two-year programme. Working that close to the machine shapes how I build for the web: I think about memory and speed, and I want code to fail loudly rather than quietly. In C, sloppy code doesn’t just run slow, it crashes.",
-      "What I care about most is what nobody notices until it’s missing: pages that load instantly, admin panels that make sense, and code someone else can read next year.",
+      "I’m a developer in Linköping. I build websites, online stores and the admin tools behind them for small and growing companies, and I work directly with the people who run them. The person you talk to is the person who writes the code, from the first conversation to launch and the weeks after.",
+      "Alongside client work I study C and C++ at Chas Academy. Writing code that close to the machine teaches you to care about every millisecond and every byte. That habit carries straight over to the web, and it’s why the sites I build load quickly even on a slow phone connection.",
+      "I explain things in plain language, write down what we’ve agreed, and give you a price before I start. When the site is live, your team can run it without me, and it belongs to you: the code, the content and the data.",
     ],
     facts: [
       { label: "Based in", value: "Linköping, Sweden" },
@@ -148,30 +147,43 @@ export const en = {
     cta: "Have a project?",
   },
   brief: {
-    kicker: "Case study · Warde Property · Nice · 2026",
-    title: "From a rented admin to one they own.",
+    kicker: "Case study · Warde Property · Nice · October 2026",
+    title: "From a rented system to a site they own.",
     sections: [
       {
+        heading: "The client",
+        body: "Warde Property is a boutique estate agency in Nice.",
+      },
+      {
         heading: "The problem",
-        body: "Warde Property is a boutique estate agency in Nice. Its listings lived in a rented estate-agency system with no way to export them, and its website ran separately on WordPress. Joacim and his team wanted to own their data, a faster site, and to publish listings and articles themselves, without losing the Google rankings they had built up over the years.",
+        body: "Their website and listings lived in a rented estate-agency system. It was slow: on a phone, the main photo took more than half a minute to appear, and Google’s own speed test gave it around 55 out of 100. The agency couldn’t even get its own listings out, as the system had no export, and every change went through the provider. Joacim wanted a faster site, a way for the team to publish listings and articles themselves, and to own their data, without losing the Google rankings they had built up over the years.",
       },
       {
         heading: "What I built",
-        body: "I designed and built a new site in Next.js with its own admin on Payload CMS and PostgreSQL. The agents add listings with photos, price and status (active, reserved, sold or archived), and a published listing is archived, never deleted. Editors write articles and pages from ready-made blocks, preview drafts on the real site, schedule posts and send the newsletter. Permissions are checked on the server, and every change is written to an audit log.",
+        body: "A new website and a private admin shaped around how an estate agency works. An agent adds a listing with photos, price and status in a few minutes. When a home is sold, they mark it as sold and the site does the rest: the listing moves to Sold, the price is hidden, and old links keep working. Nothing is ever deleted. The team writes articles and pages, previews them on the real site, schedules posts and sends the newsletter, all from the same place. A built-in help section explains every screen.",
       },
       {
-        heading: "Keeping the rankings",
-        body: "Before changing anything, I crawled the old site with my own script, 277 addresses, and used Search Console as the baseline. Of 222 listing pages, 81 still had a home behind them; with no export available, I read those from the public site and imported them. Every old address now leads to its new page in a single 301, and after launch I followed Search Console to close the last gaps.",
+        heading: "Moving without losing Google",
+        body: "A new website is where agencies most often lose their place in search. Before changing anything, I recorded where the old site stood in Google and mapped all 277 of its addresses. With no export available, I moved the 81 listings and 904 photos across myself, along with the 94 newsletter subscribers. Every old address now leads straight to its new page, and after launch I followed Google’s reports to close the last gaps.",
       },
       {
         heading: "Built to last",
-        body: "Strict TypeScript, end-to-end tests with Playwright and axe, and CI that runs a dependency audit and a secret scan on every change. The public site is built to WCAG 2.1 AA. A CRM and a sync with Apimo, the agency's listing software, are prepared as extension points rather than built, so the next phase starts on solid ground.",
+        body: "The site is built to the international accessibility standard (WCAG 2.1 AA) and checked automatically on every change, along with security checks. Subscribers are handled under GDPR: double opt-in, one-click unsubscribe, and the agency can export or delete anyone’s data on request. A CRM and a link to their listing software are prepared for the next phase.",
       },
     ],
     results: "Results",
-    rankings: "Every one of the 247 addresses from the old site leads to its new page in one step.",
-    stack: "Stack",
-    tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
+    comparison: {
+      before: "Before",
+      after: "After",
+      rows: [
+        { label: "Speed on a phone (Lighthouse)", before: "53–57", after: "96–99" },
+        { label: "Main photo on screen, phone", before: "29–42 s", after: "about 2 s" },
+        { label: "Home page size", before: "9 MB", after: "about 1 MB" },
+      ],
+    },
+    outcome:
+      "On a desktop the speed score is 99–100, with the main photo on screen in under a second. Every old address leads to its new page in one step. From first plan to launch in under two weeks.",
+    tools: "Next.js · Payload CMS · PostgreSQL · Vercel",
     back: "← Back to the case",
   },
 };

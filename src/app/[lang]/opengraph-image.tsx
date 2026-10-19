@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 const colors = { bg: "#fafafa", fg: "#111214", muted: "#63676e", rule: "#e5e6e8" };
 // Lighthouse's own colours for a passing score.
-const pass = { arc: "#0cce6b", fill: "rgba(12, 206, 107, 0.1)", text: "#008800" };
+const pass = { arc: "#0cce6b", fill: "rgba(12, 206, 107, 0.1)", text: "#007f00" };
 const circumference = 2 * Math.PI * 20;
 
 export default async function Image({ params }: { params: Promise<{ lang: string }> }) {

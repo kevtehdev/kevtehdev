@@ -13,10 +13,10 @@
   --faint: #6e7278;
   --rule: #e5e6e8;
   --hover: #f0f1f2;
-  /* Lighthouse's own colours for a passing score: the arc, its tinted disc, the number. */
+  /* Lighthouse's colours for a passing score: the arc, its tinted disc, and the number, a shade darker than Lighthouse's #080 so small figures pass AA contrast on the disc. */
   --pass-arc: #0cce6b;
   --pass-fill: rgb(12 206 107 / 0.1);
-  --pass-text: #008800;
+  --pass-text: #007f00;
 }
 
 @media (prefers-color-scheme: dark) {

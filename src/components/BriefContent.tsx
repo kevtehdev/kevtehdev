@@ -20,7 +20,36 @@ export function BriefContent({ dict, heading = true }: { dict: Dictionary; headi
         </Fragment>
       ))}
       <Subhead>{dict.brief.results}</Subhead>
-      <Body>{dict.brief.rankings}</Body>
+      {/* Before and after, side by side, so the change reads at a glance. */}
+      <table className="mb-4 w-full max-w-[34rem] text-sm">
+        <thead>
+          <tr className="text-left label">
+            <th scope="col" className="pb-1 font-normal">
+              <span className="sr-only">Lighthouse</span>
+            </th>
+            <th scope="col" className="pb-1 pl-4 text-right font-normal">
+              {dict.brief.comparison.before}
+            </th>
+            <th scope="col" className="pb-1 pl-4 text-right font-normal">
+              {dict.brief.comparison.after}
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          {dict.brief.comparison.rows.map((row) => (
+            <tr key={row.label} className="border-t border-rule">
+              <th scope="row" className="py-2 text-left font-normal text-muted">
+                {row.label}
+              </th>
+              <td className="py-2 pl-4 text-right font-mono text-[13px] whitespace-nowrap text-faint tabular-nums">
+                {row.before}
+              </td>
+              <td className="py-2 pl-4 text-right font-mono text-[13px] whitespace-nowrap tabular-nums">{row.after}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <Body>{dict.brief.outcome}</Body>
       <div className="mt-4">
         <Scores dict={dict} />
       </div>

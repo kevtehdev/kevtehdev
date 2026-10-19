@@ -85,13 +85,13 @@ export const sv: Dictionary = {
     title: "Warde Property",
     body: "En ny webbplats och ett eget adminverktyg för en mäklare på Côte d’Azur. Mäklarna sköter objekt, artiklar och nyhetsbrev själva, och sajten behöll den gamlas placeringar.",
     figures: [
-      { value: "100", label: "Prestanda, dator", device: "dator" },
-      { value: "97–99", label: "Prestanda, mobil", device: "mobil" },
-      { value: "100", label: "Tillgänglighet" },
+      { value: "99–100", label: "Prestanda, dator", device: "dator" },
+      { value: "96–99", label: "Prestanda, mobil", device: "mobil" },
+      { value: "97–100", label: "Tillgänglighet" },
       { value: "100", label: "Bästa praxis" },
       { value: "100", label: "SEO" },
     ],
-    figuresSource: "Lighthouse · 6 sidor live",
+    figuresSource: "Lighthouse · 6 sidor live · oktober 2026",
     test: "Testa själv",
     link: "Besök sajten",
     brief: "Läs briefen",
@@ -107,9 +107,9 @@ export const sv: Dictionary = {
     kicker: "Om mig",
     title: "Hej, jag heter Kevin.",
     body: [
-      "Jag är utvecklare i Linköping. Jag bygger webbplatser, webbutiker och systemen bakom dem åt små och växande företag, från första skissen till lansering och veckorna efter.",
-      "Vid sidan av kunduppdragen studerar jag C och C++ på Chas Academy, en tvåårig utbildning. Att jobba så nära maskinen formar hur jag bygger för webben: jag tänker på minne och hastighet, och jag vill att kod säger ifrån direkt i stället för att fela i tysthet. I C blir slarvig kod inte bara långsam, den kraschar.",
-      "Det jag bryr mig mest om är sådant ingen märker förrän det saknas: sidor som laddar direkt, adminpaneler som går att förstå och kod som någon annan kan läsa nästa år.",
+      "Jag är utvecklare i Linköping. Jag bygger webbplatser, webbutiker och adminverktygen bakom dem åt små och växande företag, och jag jobbar direkt med dem som driver företaget. Den du pratar med är den som skriver koden, från första samtalet till lansering och veckorna efter.",
+      "Vid sidan av kunduppdragen studerar jag C och C++ på Chas Academy. Att skriva kod så nära maskinen lär en att bry sig om varje millisekund och varje byte. Den vanan följer med rakt in i webben, och det är därför sajterna jag bygger laddar snabbt även på en långsam mobiluppkoppling.",
+      "Jag förklarar saker på vanlig svenska, skriver ner det vi har kommit överens om och ger dig ett pris innan jag börjar. När sajten är live kan ert team sköta den utan mig, och den tillhör er: koden, innehållet och datan.",
     ],
     facts: [
       { label: "Bas", value: "Linköping" },
@@ -148,30 +148,43 @@ export const sv: Dictionary = {
     cta: "Har du ett projekt?",
   },
   brief: {
-    kicker: "Case · Warde Property · Nice · 2026",
-    title: "Från ett hyrt admin till ett eget.",
+    kicker: "Case · Warde Property · Nice · oktober 2026",
+    title: "Från ett hyrt system till en sajt de äger.",
     sections: [
       {
+        heading: "Kunden",
+        body: "Warde Property är en boutiquemäklare i Nice.",
+      },
+      {
         heading: "Problemet",
-        body: "Warde Property är en boutiquemäklare i Nice. Objekten låg i ett hyrt mäklarsystem som inte gick att exportera ifrån, och webbplatsen drevs separat på WordPress. Joacim och hans team ville äga sin data, få en snabbare sajt och själva publicera objekt och artiklar, utan att tappa placeringarna i Google som de byggt upp under flera år.",
+        body: "Deras webbplats och objekt låg i ett hyrt mäklarsystem. Det var långsamt: i mobilen tog huvudbilden mer än en halv minut att visas, och Googles eget hastighetstest gav sajten runt 55 av 100. Byrån kunde inte ens få ut sina egna objekt, eftersom systemet saknade export, och varje ändring gick via leverantören. Joacim ville ha en snabbare sajt, ett sätt för teamet att själva publicera objekt och artiklar, och att äga sin data, utan att tappa placeringarna i Google som de byggt upp genom åren.",
       },
       {
         heading: "Det här byggde jag",
-        body: "Jag designade och byggde en ny sajt i Next.js med ett eget admin i Payload CMS och PostgreSQL. Mäklarna lägger in objekt med bilder, pris och status (aktiv, reserverad, såld eller arkiverad), och ett publicerat objekt arkiveras, det raderas aldrig. Redaktörerna skriver artiklar och sidor av färdiga block, förhandsgranskar utkast på den riktiga sajten, schemalägger inlägg och skickar nyhetsbrevet. Behörigheter kontrolleras på servern, och varje ändring skrivs till en logg.",
+        body: "En ny webbplats och ett eget admin format efter hur en mäklarbyrå arbetar. En mäklare lägger in ett objekt med bilder, pris och status på några minuter. När en bostad är såld markerar de den som såld och sajten sköter resten: objektet flyttas till Sålda, priset döljs och gamla länkar fungerar som förut. Inget raderas någonsin. Teamet skriver artiklar och sidor, förhandsgranskar dem på riktiga sajten, schemalägger inlägg och skickar nyhetsbrevet, allt från samma ställe. En inbyggd hjälpsektion förklarar varje vy.",
       },
       {
-        heading: "Placeringarna behölls",
-        body: "Innan jag ändrade något crawlade jag den gamla sajten med ett eget skript, 277 adresser, och använde Search Console som baslinje. Av 222 objektsidor hade 81 fortfarande en bostad bakom sig; utan någon export läste jag av dem från den publika sajten och importerade dem. Varje gammal adress leder nu till sin nya sida med en enda 301, och efter lanseringen följde jag Search Console för att täppa till de sista luckorna.",
+        heading: "Flytten utan att tappa Google",
+        body: "En ny webbplats är där mäklare oftast tappar sin plats i sökresultaten. Innan något ändrades sparade jag var den gamla sajten stod i Google och kartlade alla 277 adresser. Utan export flyttade jag själv över de 81 objekten och 904 bilderna, tillsammans med de 94 prenumeranterna på nyhetsbrevet. Varje gammal adress leder nu direkt till sin nya sida, och efter lanseringen följde jag Googles rapporter och täppte till de sista luckorna.",
       },
       {
         heading: "Byggt för att hålla",
-        body: "TypeScript i strict-läge, end-to-end-tester med Playwright och axe, och CI som kör beroendegranskning och sökning efter hemligheter vid varje ändring. Den publika sajten är byggd för WCAG 2.1 AA. Ett CRM och en synk mot Apimo, byråns objektsystem, är förberedda som utbyggnadspunkter, inte byggda, så nästa fas börjar på stabil grund.",
+        body: "Sajten är byggd efter den internationella tillgänglighetsstandarden (WCAG 2.1 AA) och kontrolleras automatiskt vid varje ändring, tillsammans med säkerhetskontroller. Prenumeranter hanteras enligt GDPR: dubbelt samtycke, avanmälan med ett klick, och byrån kan exportera eller radera en persons data på begäran. Ett CRM och en koppling till deras objektsystem är förberedda för nästa fas.",
       },
     ],
     results: "Resultat",
-    rankings: "Alla 247 adresser från den gamla sajten leder till sina nya sidor i ett steg.",
-    stack: "Teknik",
-    tools: "Next.js 16 · Payload CMS 3 · PostgreSQL · Tailwind · Vercel · Resend · Sentry",
+    comparison: {
+      before: "Före",
+      after: "Efter",
+      rows: [
+        { label: "Hastighet i mobilen (Lighthouse)", before: "53–57", after: "96–99" },
+        { label: "Huvudbilden syns, mobil", before: "29–42 s", after: "cirka 2 s" },
+        { label: "Startsidans storlek", before: "9 MB", after: "cirka 1 MB" },
+      ],
+    },
+    outcome:
+      "På dator är hastigheten 99–100, och huvudbilden syns på under en sekund. Varje gammal adress leder till sin nya sida i ett steg. Från första plan till lansering på under två veckor.",
+    tools: "Next.js · Payload CMS · PostgreSQL · Vercel",
     back: "← Tillbaka till caset",
   },
 };
